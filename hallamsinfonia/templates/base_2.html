@@ -1,0 +1,87 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A symphony orchestra based in Sheffield, England">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+    <title>Hallam Sinfonia</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="meta_container">
+      <div class="hidden-xs" id="supersidebar">
+        <img src="{% static 'img/yellow_side_icons.png' %}" />
+      </div>
+      <div class="navbar navbar-inverse" role="navigation" id="navigation">
+        <div class="container move_to_side">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+            <img src="{% static 'img/logo_hs.png' %}" />
+            <img src="{% static 'img/logo_text.png' %}" />  
+            </a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">2013-14 Season</a></li>
+              <li><a href="#about">News</a></li>
+              <li><a href="#contact">About the Orchestra</a></li>
+              <li><a href="#contact">Conductors</a></li>
+            </ul>
+          </div>
+          <!--/.nav-collapse -->
+        </div>
+      </div>
+      <div class="meso_container">
+        <div id="background-image">
+        <div class="container" id="main_container">
+          <div class="starter-template">
+            <h1>Bootstrap starter template</h1>
+            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+             <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+              <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+                            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+                                          <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+
+          </div>
+        </div>
+        <!-- /.container -->
+        </div>
+        <div class="footer visible-xs">
+            <div class="social">
+            <p><span class="icon">v</span> hallamsinfonia</p>
+            </div>
+            <div class="social">
+            <p><span class="icon">t</span> @hallamsinfonia</p>
+            </div>
+            <div class="social">
+            <p><span class="icon">a</span> info@hallamsinfonia.org.uk</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

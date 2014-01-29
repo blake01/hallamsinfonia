@@ -2,4 +2,4 @@
 from django.shortcuts import render
 
 def static(request):
-    return render(request, 'base.html')
+    return render(request, 'base_2.html')

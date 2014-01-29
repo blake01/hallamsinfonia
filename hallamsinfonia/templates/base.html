@@ -14,6 +14,40 @@
 </head>
 
 <body>
-
+	<div id="container"><!--Overall wrapper. Governs the maximum allowable page width.-->
+		<div class="navbar" role="navigation">
+			<div class="navbar-header">
+				<button class="lines-button minus" type="button" role="button" aria-label="Toggle Navigation">
+					<span class="lines"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		  </div>
+	</div>
+	
+	<script>
+		var anchor = document.querySelectorAll('button');
+	
+		[].forEach.call(anchor, function(anchor){
+		  var open = false;
+		  anchor.onclick = function(event){
+			event.preventDefault();
+			if(!open){
+			  this.classList.add('close');
+			  open = true;
+			}
+			else{
+			  this.classList.remove('close');
+			  open = false;
+			}
+		  }
+		}); 
+	</script>
 </body>
 </html>

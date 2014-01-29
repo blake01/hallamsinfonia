@@ -2,5 +2,174 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+ 
+@import "compass";
 
-@import "compass/reset";
+$yellow: rgb(215, 172, 17);
+
+body, html {
+	background-color: #ddd;
+	color: white;
+}
+
+.clearfix {
+	clear: both;
+}
+
+.collapse {
+	padding: 0;
+}
+
+#meta_container {
+	margin: 0 auto;
+	position: relative;
+	width: 100%;
+	max-width: 2000px;
+	@include single-box-shadow;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	@include background(image-url("backgrounds/bg1.jpg"));
+	@include background-size(cover);
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+}
+
+#main_container, #background-image {
+	position: relative;
+	min-height: 100%;
+	width: 100%;
+}
+
+.container {
+	margin-left: 0;
+	min-height: 100%;
+}
+.meso_container {
+	position: relative;
+	min-height: 100%;
+	height: 100%;
+}
+
+.starter-template {
+}
+
+.navbar {
+	background-color: $yellow;
+	border: 0;
+	margin-bottom: 0;
+	@include border-radius(0);
+	a {
+		color: white;
+	}
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: white;
+}
+.navbar-inverse .navbar-toggle {
+	border-color: white;
+}
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+	background-color: $yellow;
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav li a:hover, .navbar-inverse .navbar-nav li a:focus {
+	color: #fff;
+	background-color: tint($yellow, 20);
+	font-weight: bold;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+	border: 0;
+}
+
+.navbar-brand {
+	padding: 0;
+	img {
+		height: 50px;
+		padding-right: 10px;
+	}
+}
+.navbar-header {
+	padding: 15px 0 15px 0;
+}
+.navbar-nav {
+	margin-top: 0;
+	margin-left: -15px;
+	li a {
+		padding-left: 30px;
+		border-top: solid 1px white;
+	}
+}
+.navbar>.container .navbar-brand {
+	margin-left: 15px;
+}
+
+.move_to_side {
+	width: 100%;
+}
+.footer {
+	background-color: white;
+	text-align: center;
+	color: #444;
+	padding: 10px;
+	.social {
+		display:inline-block;
+		margin: 0 30px 0 30px;
+	}
+}
+.icon {
+	color: $yellow;
+}
+
+#supersidebar {
+	background-color: white;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	min-height: 900px;
+	width: 40px;
+	padding-left: 2px
+}
+
+@media screen and (min-width: 768px) {
+	body, html {
+		height: 100%;
+	}
+	.navbar {
+		li, img {
+			width: 100%;
+			height: auto;
+		}
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 40px;
+		min-height: 900px;
+		width: 180px;
+	}
+	.move_to_side {
+		@include background(image-url("swords_20.png") left bottom no-repeat);
+		background-size: 360px 360px;
+	}
+	.meso_container {
+		margin-left: 220px;	
+	}
+	#main_container {
+		padding-left: 30px;
+	}
+	#main_container, #background-image, .meso_container {
+		min-height: 900px;
+		height: 100%;
+	}
+	.navbar-nav {
+		padding-top: 50px;
+	}
+	.move_to_side {
+		padding-top: 20px;
+	}
+	#meta_container {
+		background-position: 150px;
+	}
+}
