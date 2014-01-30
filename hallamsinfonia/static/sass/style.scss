@@ -5,11 +5,70 @@
  
 @import "compass";
 
+@mixin two_col_liquid_left_fixed_right($fixed_div_name, $liquid_div_wrapper_name, $liquid_div_name, $fixed_width, $padding_offset) {
+    /*
+    *  Mixin to generate a two-column layout in which the right-hand
+    *  column has a fixed width and the left-hand column occupies the
+    *  remaining space.
+    *  A padded gap can be created by specifying a padding offset.
+    *  State units (i.e. px) with $fixed_width and $padding_offset.
+    *
+    *  Implement using the following HTML:
+
+    <div class="liquid_left_wrapper">
+        <div class="liquid_left">
+            <!--Liquid content-->
+        </div>
+    </div>
+    <div class="fixed_right">
+       <!--Fixed content-->
+    </div>
+
+    */
+    #{$fixed_div_name} {
+        float: left;
+        margin-left: -$fixed_width;
+        width: $fixed_width;
+    }
+    #{$liquid_div_wrapper_name} {
+        float: left;
+        width: 100%;
+    }
+    #{$liquid_div_name} {
+        margin-right: $fixed_width + $padding_offset;
+    }
+}
+
 $yellow: rgb(215, 172, 17);
+
+@include font-face("jura", font-files("jura.ttf", "jura.woff", "jura.svg"), "jura.eot");
+@include font-face("sosa", font-files("sosa.ttf", "soa.woff", "sosa.svg"), "sosa.eot");
 
 body, html {
 	background-color: #ddd;
 	color: white;
+	font-family: 'Cabin', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'jura', serif;
+	margin-top: 0;
+}
+h1 {
+	font-family: 'Cabin', sans-serif;
+	border-bottom: 2px solid $yellow;
+	margin: 5px 0px 10px 0;
+	padding-bottom: 10px;
+	font-size: 30px;
+}
+.smaller-p {
+	font-size: 12px;
+	color: #ddd;
+}
+
+.icon {
+	font-family: 'sosa', sans-serif;
+	padding-right: 5px;
 }
 
 .clearfix {
@@ -24,7 +83,7 @@ body, html {
 	margin: 0 auto;
 	position: relative;
 	width: 100%;
-	max-width: 2000px;
+	max-width: 1800px;
 	@include single-box-shadow;
 	min-height: 100%;
 	height: auto !important;
@@ -35,10 +94,11 @@ body, html {
 	background-repeat: no-repeat;
 }
 
-#main_container, #background-image {
+#main_container {
 	position: relative;
-	min-height: 100%;
 	width: 100%;
+	max-width: 500px;
+	margin: 0 auto;
 }
 
 .container {
@@ -76,7 +136,6 @@ body, html {
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav li a:hover, .navbar-inverse .navbar-nav li a:focus {
 	color: #fff;
 	background-color: tint($yellow, 20);
-	font-weight: bold;
 }
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
@@ -94,8 +153,7 @@ body, html {
 	padding: 15px 0 15px 0;
 }
 .navbar-nav {
-	margin-top: 0;
-	margin-left: -15px;
+	margin: 0 -15px 0 -15px;
 	li a {
 		padding-left: 30px;
 		border-top: solid 1px white;
@@ -109,33 +167,163 @@ body, html {
 	width: 100%;
 }
 .footer {
+	font-family: 'jura', serif;
+	font-size: 12pt;
 	background-color: white;
 	text-align: center;
-	color: #444;
+	color: #333;
 	padding: 10px;
 	.social {
 		display:inline-block;
 		margin: 0 30px 0 30px;
 	}
-}
-.icon {
-	color: $yellow;
+	.icon {
+		color: $yellow;
+	}
 }
 
+.fifty-float {
+	float: left;
+	width: 50%;
+	p {
+		margin: 0 0 5px 0;
+	}
+}
+.lhs {
+	padding-right: 10px;
+}
+.rhs {
+	padding-left: 10px;
+	.inset {
+		margin-left: 20px;
+	}
+	.reset {
+		margin-left: -20px;
+	}
+	.lowered {
+		margin-top: 15px;
+	}
+}
+
+#quote {
+	position: relative;
+	margin: 20px;
+	color: white;
+	#quote-src {
+		font-style:italic;
+	}
+}
 #supersidebar {
 	background-color: white;
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	left: 0;
-	min-height: 900px;
+	min-height: 850px;
 	width: 40px;
 	padding-left: 2px
 }
 
-@media screen and (min-width: 768px) {
+@mixin transparent($color, $alpha) {
+  $rgba: rgba($color, $alpha);
+  $ie-hex-str: ie-hex-str($rgba);
+  background-color: transparent;
+  background-color: $rgba;
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
+  zoom: 1;
+}
+
+.content-box {
+	position: relative;
+	max-width: 1200px;
+	@include transparent(#000, 0.5);
+	padding: 10px 20px 10px 20px;
+	margin: 20px 0 20px 0;
+}
+
+@include two_col_liquid_left_fixed_right('.content-image-wrapper', '.content-text-wrapper', '.content-text', 270px, 20px);
+.content-text img {
+	width: 100%;
+	padding: 10px 0 10px 0;
+}
+.content-image-wrapper img {
+	width: 100%;
+	display: none;
+	padding-top: 20px;
+}
+.content-image-wrapper, .content-image-wrapper img {
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+.content-text {
+	margin-right: 0;
+	p {
+		color: #ddd;
+	}
+	.icon {
+		color: #fff;
+	}
+	a {
+		color: #fff;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.visible-to-900 {
+	display: block;
+	@media screen and (min-width: 900px) {
+		display: none;
+	}
+}
+.visible-beyond-900 {
+	display: none;
+	@media screen and (min-width: 900px) {
+		display: block;
+	}
+}
+
+@media screen and (min-width: 700px) {
+	.content-text {
+		margin-right: 290px;
+		img {
+			display: none;
+		}
+	}
+	.content-image-wrapper img {
+		width: 100%;
+		display: block;
+	}
+	#main_container {
+		max-width: 100%;
+		margin: 0 0;
+	}
+}
+
+@media screen and (min-width: 768px) and (max-width: 899px) {
+	.navbar-nav {
+		float: right;
+		padding: 0;
+		li a { 
+			border: 0;
+			padding: 30px 20px 30px 20px;
+		}
+	}	
+}
+
+@media screen and (min-width: 900px) {
 	body, html {
 		height: 100%;
+	}
+	#quote {
+		height: 150px;
+		width: 200px;
+		margin: 40px 0 0 10px;
 	}
 	.navbar {
 		li, img {
@@ -146,7 +334,7 @@ body, html {
 		top: 0;
 		bottom: 0;
 		left: 40px;
-		min-height: 900px;
+		min-height: 850px;
 		width: 180px;
 	}
 	.move_to_side {
@@ -160,7 +348,7 @@ body, html {
 		padding-left: 30px;
 	}
 	#main_container, #background-image, .meso_container {
-		min-height: 900px;
+		min-height: 850px;
 		height: 100%;
 	}
 	.navbar-nav {
@@ -169,7 +357,29 @@ body, html {
 	.move_to_side {
 		padding-top: 20px;
 	}
-	#meta_container {
-		background-position: 150px;
+	h1 {
+		margin-left: -40px;
+		padding-left: 40px
+	}
+	.content-box {
+		padding-left: 40px;
+		margin-left: -30px;
+	}
+	.navbar-nav li a {
+		border-width: 2px;
 	}
 }
+
+@media screen and (min-width: 1200px) {
+    .content-image-wrapper {
+        margin-left: -320px;
+        width: 320px;
+        img {
+        	padding: 0;
+        }
+    }
+    .content-text {
+        margin-right: 340px;
+    }
+}
+	

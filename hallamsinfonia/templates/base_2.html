@@ -8,6 +8,7 @@
     <meta name="description" content="A symphony orchestra based in Sheffield, England">
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
     <title>Hallam Sinfonia</title>
+    <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Custom styles -->
@@ -20,7 +21,7 @@
   </head>
   <body>
     <div id="meta_container">
-      <div class="hidden-xs" id="supersidebar">
+      <div class="visible-beyond-900" id="supersidebar">
         <img src="{% static 'img/yellow_side_icons.png' %}" />
       </div>
       <div class="navbar navbar-inverse" role="navigation" id="navigation">
@@ -49,21 +50,58 @@
         </div>
       </div>
       <div class="meso_container">
-        <div id="background-image">
         <div class="container" id="main_container">
-          <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-             <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-              <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-                            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-                                          <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-
-          </div>
+            <div id="quote">
+                <p>The orchestral sound
+                is measured,
+                balanced and
+                played with such
+                enthusiasm and spirit.</p>
+                <p id="quote-src">Helen McRay, email 2013</p>
+            </div>
+            <div class="content-box">            
+                <div class="content-text-wrapper">
+                    <div class="content-text">
+                        <h1>Upcoming</h1>
+                        <img src="{% static 'img/concerts/concert_1.jpg' %}" />
+                        <div class="fifty-float lhs">
+                            <h3>Saturday 23 November 13</h3>
+                            <p>St. Cecilia Mass</p>
+                            <p class="smaller-p">(with Hallam Choral Society)</p>
+                        </div>
+                        <div class="fifty-float rhs">
+                            <p class="inset"><span class="icon reset">[</span>7.30pm</p>
+                            <p class="inset"><span class="icon reset">o</span>Ecclesall Parish Church
+                            Ringinglow Rd, S11 7PP</p>
+                            <p class="lowered"><a href="#">read more...</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-image-wrapper">
+                   <img src="{% static 'img/concerts/concert_1.jpg' %}" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="content-box">            
+                <div class="content-text-wrapper">
+                    <div class="content-text">
+                        <h1>Tim Horton to do Beethoven Cycle</h1>
+                        <img src="{% static 'img/concerts/concert_2.jpg' %}" />
+                <p>Tim Horton Opti occulles doluptate resed quamus atur
+sam, qui dictur, nam sequias perspit iistore nem. Itae sim
+laccum quodi dolestia quunt etur si resseque lam ut occus
+sa dust pro veni re, arum sini alis pro...  <a href="#">read more...</a></p>
+                    </div>
+                </div>
+                <div class="content-image-wrapper">
+                   <img src="{% static 'img/concerts/concert_2.jpg' %}" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
         </div>
         <!-- /.container -->
         </div>
-        <div class="footer visible-xs">
+        <div class="footer visible-to-900">
             <div class="social">
             <p><span class="icon">v</span> hallamsinfonia</p>
             </div>
@@ -73,15 +111,26 @@
             <div class="social">
             <p><span class="icon">a</span> info@hallamsinfonia.org.uk</p>
             </div>
-            <div class="clearfix"></div>
         </div>
-      </div>
-      <div class="clearfix"></div>
     </div>
     <!-- Bootstrap core JavaScript
       ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+    function check_sticky_footer() {
+        available_height = $(window).height() - $("#meta_container").height();
+        if (available_height > 0) {
+            $("#main_container").css("min-height", $("#main_container").height() + available_height);
+        }
+    }
+    $( window ).resize(function() {
+      check_sticky_footer()
+    });
+    $( window ).load(function() {
+      check_sticky_footer()
+    });
+    </script>
   </body>
 </html>
