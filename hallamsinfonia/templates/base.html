@@ -1,53 +1,91 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A symphony orchestra based in Sheffield, England">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
     <title>Hallam Sinfonia</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="{% static 'js/respond.min.js' %}"></script>
-    <!--[if IE]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-</head>
-
-<body>
-	<div id="container"><!--Overall wrapper. Governs the maximum allowable page width.-->
-		<div class="navbar" role="navigation">
-			<div class="navbar-header">
-				<button class="lines-button minus" type="button" role="button" aria-label="Toggle Navigation">
-					<span class="lines"></span>
-				</button>
-			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</div><!--/.nav-collapse -->
-		  </div>
-	</div>
-	
-	<script>
-		var anchor = document.querySelectorAll('button');
-	
-		[].forEach.call(anchor, function(anchor){
-		  var open = false;
-		  anchor.onclick = function(event){
-			event.preventDefault();
-			if(!open){
-			  this.classList.add('close');
-			  open = true;
-			}
-			else{
-			  this.classList.remove('close');
-			  open = false;
-			}
-		  }
-		}); 
-	</script>
-</body>
+  </head>
+  <body>
+    <div id="meta_container">
+      <div class="visible-beyond-900" id="supersidebar">
+        <img src="{% static 'img/yellow_side_icons.png' %}" />
+      </div>
+      <div class="navbar navbar-inverse" role="navigation" id="navigation">
+        <div class="container move_to_side">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+            <img src="{% static 'img/logo_hs.png' %}" />
+            <img src="{% static 'img/logo_text.png' %}" />  
+            </a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="{% url 'hallamsinfonia.views.upcoming' %}">2013-14 Season</a></li>
+              <li><a href="{% url 'hallamsinfonia.views.news' %}">News</a></li>
+              <li><a href="{% url 'hallamsinfonia.views.about' %}">About the Orchestra</a></li>
+              <li><a href="{% url 'hallamsinfonia.views.conductors' %}">Conductors</a></li>
+            </ul>
+          </div>
+          <!--/.nav-collapse -->
+        </div>
+      </div>
+      <div class="meso_container">
+        <div class="container" id="main_container">
+            {% block main_content %}
+            {% endblock main_content %}
+        </div>
+        <!-- /.container -->
+        </div>
+        <div class="footer visible-to-900">
+            <div class="social">
+            <p><span class="icon">v</span> hallamsinfonia</p>
+            </div>
+            <div class="social">
+            <p><span class="icon">t</span> @hallamsinfonia</p>
+            </div>
+            <div class="social">
+            <p><span class="icon">a</span> info@hallamsinfonia.org.uk</p>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+    function check_sticky_footer() {
+        available_height = $(window).height() - $("#meta_container").height();
+        $("#main_container").css("min-height", $("#main_container").height() + available_height);
+    }
+    $( window ).resize(function() {
+      check_sticky_footer()
+    });
+    $( window ).load(function() {
+      check_sticky_footer()
+    });
+    </script>
+    {% block additional_js %}
+    {% endblock %}
+  </body>
 </html>

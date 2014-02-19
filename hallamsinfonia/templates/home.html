@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+            
+            {% block main_content %}
+            <div id="quote">
+                <p>The orchestral sound
+                is measured,
+                balanced and
+                played with such
+                enthusiasm and spirit.</p>
+                <p id="quote-src">Helen McRay, email 2013</p>
+            </div>
+            <div class="content-box">            
+                <div class="content-text-wrapper">
+                    <div class="content-text">
+                        <h1>Upcoming</h1>
+                        <img src="{% static 'img/concerts/concert_1.jpg' %}" />
+                        <div class="fifty-float lhs">
+                            <h3>Saturday 23 November 13</h3>
+                            <p>St. Cecilia Mass</p>
+                            <p class="smaller-p">(with Hallam Choral Society)</p>
+                        </div>
+                        <div class="fifty-float rhs">
+                            <p class="inset"><span class="icon reset">[</span>7.30pm</p>
+                            <p class="inset"><span class="icon reset">o</span>Ecclesall Parish Church
+                            Ringinglow Rd, S11 7PP</p>
+                            <p class="lowered"><a href="#">read more...</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-image-wrapper">
+                   <img src="{% static 'img/concerts/concert_1.jpg' %}" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="content-box">            
+                <div class="content-text-wrapper">
+                    <div class="content-text">
+                        <h1>Tim Horton to do Beethoven Cycle</h1>
+                        <img src="{% static 'img/concerts/concert_2.jpg' %}" />
+                <p>Tim Horton Opti occulles doluptate resed quamus atur
+sam, qui dictur, nam sequias perspit iistore nem. Itae sim
+laccum quodi dolestia quunt etur si resseque lam ut occus
+sa dust pro veni re, arum sini alis pro...  <a href="#">read more...</a></p>
+                    </div>
+                </div>
+                <div class="content-image-wrapper">
+                   <img src="{% static 'img/concerts/concert_2.jpg' %}" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            {% endblock main_content %}

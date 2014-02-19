@@ -39,6 +39,42 @@
     }
 }
 
+@mixin two_col_fixed_left_liquid_right($fixed_div_name, $liquid_div_wrapper_name, $liquid_div_name, $fixed_width, $padding_offset) {
+    /*
+    *  Mixin to generate a two-column layout in which the left-hand
+    *  column has a fixed width and the right-hand column occupies the
+    *  remaining space.
+    *  A padded gap can be created by specifying a padding offset.
+    *  State units (i.e. px) with $fixed_width and $padding_offset.
+    *
+    *  Implement using the following HTML:
+
+    <div class="liquid_right_wrapper">
+        <div class="liquid_right">
+            <!--Liquid content-->
+        </div>
+    </div>
+    <div class="fixed_left">
+       <!--Fixed content-->
+    </div>
+
+    */
+    #{$fixed_div_name}, #{$liquid_div_wrapper_name} {
+        float: left;
+    }
+    #{$fixed_div_name} {
+        margin-left: -100%;
+        width: $fixed_width;
+        padding-right: $padding_offset;
+    }
+    #{$liquid_div_wrapper_name} {
+        width: 100%;
+    }
+    #{$liquid_div_name} {
+        margin-left: $fixed_width + $padding_offset;
+    }
+}
+
 $yellow: rgb(215, 172, 17);
 
 @include font-face("jura", font-files("jura.ttf", "jura.woff", "jura.svg"), "jura.eot");
@@ -46,13 +82,14 @@ $yellow: rgb(215, 172, 17);
 
 body, html {
 	background-color: #ddd;
-	color: white;
 	font-family: 'Cabin', sans-serif;
+	color: #e6e6e6;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'jura', serif;
-	margin-top: 0;
+	margin: 0 0 5px 0;
+	color: white;
 }
 h1 {
 	font-family: 'Cabin', sans-serif;
@@ -63,7 +100,12 @@ h1 {
 }
 .smaller-p {
 	font-size: 12px;
-	color: #ddd;
+}
+a {
+	color: white;
+	&:hover {
+		color: white;
+	}
 }
 
 .icon {
@@ -79,11 +121,28 @@ h1 {
 	padding: 0;
 }
 
+table {
+	width: 100%;
+	border-spacing: 12px;
+	margin-top: -10px;
+    border-collapse: separate;
+    .fixed-width {
+    	width: 148px;
+    }
+	img {
+		margin-left: -12px;
+		width: 150px;
+	}
+	td {
+		vertical-align:top;
+	}
+}
+
 #meta_container {
 	margin: 0 auto;
 	position: relative;
 	width: 100%;
-	max-width: 1800px;
+	max-width: 2000px;
 	@include single-box-shadow;
 	min-height: 100%;
 	height: auto !important;
@@ -109,9 +168,6 @@ h1 {
 	position: relative;
 	min-height: 100%;
 	height: 100%;
-}
-
-.starter-template {
 }
 
 .navbar {
@@ -182,6 +238,14 @@ h1 {
 	}
 }
 
+#conductors-list {
+	a {
+		color: white;
+		display: block;
+		margin-bottom: 5px;
+	}
+}
+
 .fifty-float {
 	float: left;
 	width: 50%;
@@ -233,12 +297,26 @@ h1 {
   zoom: 1;
 }
 
-.content-box {
+.content-box, #upcoming-wrapper {
 	position: relative;
 	max-width: 1200px;
+	margin: 20px 0 20px 0;
+}
+
+.content-box, .col {
 	@include transparent(#000, 0.5);
 	padding: 10px 20px 10px 20px;
-	margin: 20px 0 20px 0;
+}
+.col {
+	margin-bottom: 20px;
+	img {
+		width: 100%;
+		max-width: 350px;
+	}
+}
+
+.centred {
+	text-align: center;
 }
 
 @include two_col_liquid_left_fixed_right('.content-image-wrapper', '.content-text-wrapper', '.content-text', 270px, 20px);
@@ -251,6 +329,10 @@ h1 {
 	display: none;
 	padding-top: 20px;
 }
+#about-images img {
+	padding-top: 0;
+	padding-bottom: 20px;
+}
 .content-image-wrapper, .content-image-wrapper img {
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
@@ -260,14 +342,10 @@ h1 {
 }
 .content-text {
 	margin-right: 0;
-	p {
-		color: #ddd;
-	}
 	.icon {
 		color: #fff;
 	}
 	a {
-		color: #fff;
 		text-decoration: none;
 		&:hover {
 			text-decoration: underline;
@@ -275,6 +353,20 @@ h1 {
 	}
 }
 
+.hand {
+	cursor: pointer;
+	cursor: hand;
+}
+
+.conductor img {
+		margin: 0 auto;
+		padding: 0 0 10px 20px;
+		width: 180px;
+		float: right;
+}
+
+@include two_col_fixed_left_liquid_right(".fixed_left", ".liquid_right", ".liquid_right_wrapper", 150px, 20px);
+	
 .visible-to-900 {
 	display: block;
 	@media screen and (min-width: 900px) {
@@ -289,6 +381,22 @@ h1 {
 }
 
 @media screen and (min-width: 700px) {
+	#upcoming-wrapper {
+		overflow: hidden;
+		.col {
+			width: 49%;
+			float: left;
+			margin-bottom: -979px;
+			padding-bottom: 999px;
+		}
+		.col:nth-child(2) {
+			float: right;
+			h1 {
+				margin-left: 0;
+				padding-left: 0;
+			}	
+		}
+	}
 	.content-text {
 		margin-right: 290px;
 		img {
@@ -302,6 +410,16 @@ h1 {
 	#main_container {
 		max-width: 100%;
 		margin: 0 0;
+	}
+	.two-col {
+		@include column-count(2);
+		@include column-gap(40px);
+	}
+	#conductors-list {
+		a {
+			display: inline-block;
+			margin-right: 60px;
+		}
 	}
 }
 
@@ -323,7 +441,7 @@ h1 {
 	#quote {
 		height: 150px;
 		width: 200px;
-		margin: 40px 0 0 10px;
+		margin: 10px 0 0 10px;
 	}
 	.navbar {
 		li, img {
@@ -345,9 +463,10 @@ h1 {
 		margin-left: 220px;	
 	}
 	#main_container {
+		padding-top: 30px;
 		padding-left: 30px;
 	}
-	#main_container, #background-image, .meso_container {
+	#main_container, .meso_container {
 		min-height: 850px;
 		height: 100%;
 	}
@@ -365,6 +484,10 @@ h1 {
 		padding-left: 40px;
 		margin-left: -30px;
 	}
+	#upcoming-wrapper {
+		margin-left: -30px;
+		.col:nth-child(1) {padding-left: 40px; }
+	}
 	.navbar-nav li a {
 		border-width: 2px;
 	}
@@ -377,6 +500,11 @@ h1 {
         img {
         	padding: 0;
         }
+    }
+    #about-images {
+    	img {
+    		padding-bottom: 20px;
+    	}
     }
     .content-text {
         margin-right: 340px;
