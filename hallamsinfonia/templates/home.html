@@ -1,52 +1,54 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
             
-            {% block main_content %}
-            <div id="quote">
-                <p>The orchestral sound
-                is measured,
-                balanced and
-                played with such
-                enthusiasm and spirit.</p>
-                <p id="quote-src">Helen McRay, email 2013</p>
+{% block main_content %}
+
+<div id="quote">
+    <p>{{ settings.quote_text }}</p>
+    <p id="quote-src">{{ settings.quote_source }}</p>
+</div>
+
+{% if next_concert %}
+<div class="content-box">            
+    <div class="content-text-wrapper">
+        <div class="content-text">
+            <h1>Upcoming</h1>
+            <img src="{{ next_concert.image.image.url }}" alt="{{ next_concert.image.title }}" />
+            <div class="fifty-float lhs">
+                <h3>{{ next_concert.date }}</h3>
+                <p>{{ next_concert.title }}</p>
+                {% if next_concert.subtitle %}
+                <p class="smaller-p">{{ next_concert.subtitle }}</p>
+                {% endif %}
             </div>
-            <div class="content-box">            
-                <div class="content-text-wrapper">
-                    <div class="content-text">
-                        <h1>Upcoming</h1>
-                        <img src="{% static 'img/concerts/concert_1.jpg' %}" />
-                        <div class="fifty-float lhs">
-                            <h3>Saturday 23 November 13</h3>
-                            <p>St. Cecilia Mass</p>
-                            <p class="smaller-p">(with Hallam Choral Society)</p>
-                        </div>
-                        <div class="fifty-float rhs">
-                            <p class="inset"><span class="icon reset">[</span>7.30pm</p>
-                            <p class="inset"><span class="icon reset">o</span>Ecclesall Parish Church
-                            Ringinglow Rd, S11 7PP</p>
-                            <p class="lowered"><a href="#">read more...</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="content-image-wrapper">
-                   <img src="{% static 'img/concerts/concert_1.jpg' %}" />
-                </div>
-                <div class="clearfix"></div>
+            <div class="fifty-float rhs">
+                <p class="inset"><span class="icon reset">[</span>{{ next_concert.time }}</p>
+                <p class="inset"><span class="icon reset">o</span>{{ next_concert.location }}</p>
+                <p class="lowered"><a href="{% url 'upcoming' %}#{{ next_concert.pk }}">read more...</a></p>
             </div>
-            <div class="content-box">            
-                <div class="content-text-wrapper">
-                    <div class="content-text">
-                        <h1>Tim Horton to do Beethoven Cycle</h1>
-                        <img src="{% static 'img/concerts/concert_2.jpg' %}" />
-                <p>Tim Horton Opti occulles doluptate resed quamus atur
-sam, qui dictur, nam sequias perspit iistore nem. Itae sim
-laccum quodi dolestia quunt etur si resseque lam ut occus
-sa dust pro veni re, arum sini alis pro...  <a href="#">read more...</a></p>
-                    </div>
-                </div>
-                <div class="content-image-wrapper">
-                   <img src="{% static 'img/concerts/concert_2.jpg' %}" />
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            {% endblock main_content %}
+        </div>
+    </div>
+    <div class="content-image-wrapper">
+        <img src="{{ next_concert.image.image.url }}" alt="{{ next_concert.image.title }}" />
+    </div>
+    <div class="clearfix"></div>
+</div>
+{% endif %}
+
+{% if latest_news %}
+<div class="content-box">            
+    <div class="content-text-wrapper">
+        <div class="content-text">
+            <h1>{{ latest_news.title }}</h1>
+            <img src="{{ latest_news.image.image.url }}" alt="{{ latest_news.image.title }}" />
+    <p>{{ latest_news.content|linebreaks|truncatewords:50 }} <a href="{% url 'news' %}">read more...</a></p>
+        </div>
+    </div>
+    <div class="content-image-wrapper">
+       <img src="{{ latest_news.image.image.url }}" alt="{{ latest_news.image.title }}" />
+    </div>
+    <div class="clearfix"></div>
+</div>
+{% endif %}
+
+{% endblock main_content %}

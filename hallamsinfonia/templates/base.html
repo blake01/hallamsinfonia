@@ -8,11 +8,17 @@
     <meta name="description" content="A symphony orchestra based in Sheffield, England">
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
     <title>Hallam Sinfonia</title>
-    <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Custom styles -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/{{ color }}.css" rel="stylesheet">
+    <style>
+        /* Randomised background */
+        #meta_container {
+            background-image:url('/static/img/backgrounds/{{ background_number }}.jpg');
+        }
+    </style>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -40,7 +46,7 @@
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="{% url 'hallamsinfonia.views.upcoming' %}">2013-14 Season</a></li>
+              <li><a href="{% url 'hallamsinfonia.views.upcoming' %}">{{ settings.live_season }}</a></li>
               <li><a href="{% url 'hallamsinfonia.views.news' %}">News</a></li>
               <li><a href="{% url 'hallamsinfonia.views.about' %}">About the Orchestra</a></li>
               <li><a href="{% url 'hallamsinfonia.views.conductors' %}">Conductors</a></li>
@@ -73,6 +79,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/hashchange.min.js' %}"></script>
     <script>
     function check_sticky_footer() {
         available_height = $(window).height() - $("#meta_container").height();

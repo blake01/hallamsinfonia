@@ -1,0 +1,37 @@
+<h1>{{ concert.date }}</h1>
+
+<div class="centred">
+    <img src="{{ concert.image.image.url }}" alt="{{ concert.image.title }}" />
+</div>
+
+<table>
+    <tr></tr>
+    <tr>
+        <td class="icon">[</td>
+        <td>{{ concert.time }}</td>
+    </tr>
+    <tr>
+        <td class="icon">o</td>
+        <td>{{ concert.location }}</td>
+    </tr>
+    <tr>
+        <td class="icon">l</td>
+        <td>{{ concert.full_price_ticket_cost }}</td>
+    </tr>
+</table>
+
+<p>
+{% for piece in concert.piece_set.all %}
+<b>{{ piece.composer }}</b> {{ piece.title }}<br />
+{% endfor %}
+</p>
+
+<p>
+{% for conductor in concert.conductors.all %}
+<b>{{ conductor }}</b> conductor<br />
+{% endfor %}
+</p>
+
+<p>{{ concert.description|linebreaks }}</p>
+
+<p id="book"><a href="{{ concert.booking_link }}" target="_blank" >Click to book tickets for this concert</p></a>

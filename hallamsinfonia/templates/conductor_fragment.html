@@ -1,0 +1,5 @@
+<h1>{{ conductor }}</h1>
+{% if conductor.image %}
+<img src="{{ conductor.image.url }}" alt="{{ conductor }}" />
+{% endif %}
+<p>{{ conductor.description|linebreaks }}</p>

@@ -3,50 +3,18 @@
             
 {% block main_content %}
 <div class="content-box">      
- <h1>The Hallam Sinfonia</h1>      
-                <div class="content-text-wrapper">
-                
-                    <div class="content-text">
-                       
-                        <img src="{% static 'img/concerts/concert_2.jpg' %}" />
-                <p>The Hallam Sinfonia is pleased to welcome back Richard Laing,
-on his annual visit as guest conductor, in a programme which
-includes works by two composers with big anniversaries this
-year. He is joined in these works by Sarah Estill, performing with
-the orchestra for the first time.</p><p>
-The Hallam Sinfonia was originally set up as a chamber orchestra
-by a group of local peripatetic music teachers. Earlier this year
-the 40th anniversary concert repeated some of the works
-performed at the very first concert in 1973: Mozart’s Marriage of
-Figaro overture and Beethoven’s 1st symphony, and the players
-included several founder members, including the current leader,
-John Cooper.</p><p>
-The orchestra has however seen many changes over those 40
-years and is certainly no longer a chamber orchestra, though its
-forces may be scaled down on occasion. Its repertoire extends
-from the baroque to the 21st century, including large- scale
-romantic works, and from the mainstream classics to film music
-and children’s concerts.</p><p>
-This range of activity is designed to meet a variety of needs: to
-please audiences with old favourites, to draw in new audiences
-(including children and young people), to provide players
-with exciting challenges, to make best use of the resources
-the orchestra has at its disposal, and sometimes to enable
-collaboration with other organisations.</p><p>
-The orchestra is regularly asked to work with choral societies in
-Sheffield and Rotherham, and the forthcoming collaboration with
-the Hallam Choral Society involves a joint celebration of another
-of the year’s big musical anniversaries.The remaining concerts of
-the season will be conducted by the orchestra’s Musical Director
-Natalia Luis-Bassa and full details of all of these can be found in
-the 2013-4 concert guide.</p>
-                    </div>
-                </div>
-                <div class="content-image-wrapper" id="about-images">
-                   <img src="{% static 'img/concerts/concert_2.jpg' %}" />
-                   <img src="{% static 'img/concerts/concert_4.jpg' %}" />
-                   <img src="{% static 'img/concerts/concert_3.jpg' %}" />
-                </div>
-                <div class="clearfix"></div>
-            </div>
+    <h1>The Hallam Sinfonia</h1>      
+    <div class="content-text-wrapper">
+        <div class="content-text">
+            <img src="{{ settings.about_image_1.image.url }}" alt="{{ settings.about_image_1.title }}" />
+            <p>{{ settings.about_the_orchestra|linebreaks }}</p>
+        </div>
+    </div>
+    <div class="content-image-wrapper" id="about-images">
+        <img src="{{ settings.about_image_1.image.url }}" alt="{{ settings.about_image_1.title }}" />
+        <img src="{{ settings.about_image_2.image.url }}" alt="{{ settings.about_image_2.title }}" />
+        <img src="{{ settings.about_image_3.image.url }}" alt="{{ settings.about_image_3.title }}" />
+    </div>
+    <div class="clearfix"></div>
+</div>
 {% endblock main_content %}

@@ -5,62 +5,51 @@
 
 <div id="upcoming-wrapper">
 
-<div class="col">
-    <h1>2013-14 season</h1>
-<table>
-<tr>
-<td class="fixed-width"><img src="{% static 'img/concerts/concert_1.jpg' %}" /></td>
-<td><h4>Saturday 5 October 13</h4>Tchaikovky: Symphony no.4</td>
-</tr>
-<tr>
-<td><img src="{% static 'img/concerts/concert_2.jpg' %}" /></td>
-<td><h4>Saturday 5 October 13</h4>Tchaikovky: Symphony no.4</td>
-</tr>
-<tr>
-<td><img src="{% static 'img/concerts/concert_3.jpg' %}" /></td>
-<td><h4>Saturday 5 October 13</h4>Tchaikovky: Symphony no.4</td>
-</tr>
-<tr>
-<td><img src="{% static 'img/concerts/concert_4.jpg' %}" /></td>
-<td><h4>Saturday 5 October 13</h4>Tchaikovky: Symphony no.4</td>
-</tr>
-</table>
-</div>
+    <div class="col">
+        <h1>2013-14 season</h1>
+        
+        <table>
+            <tr class="concert">
+                {% for concert in concerts %}
+                <td class="fixed-width">
+                    <a href="#{{ concert.pk }}">
+                        <img src="{{ concert.image.image.url }}" alt="{{ concert.image.title }}" />
+                    </a>
+                </td>
+                <td>
+                    <a href="#{{ concert.pk }}"><h4>{{ concert.date }}</h4>{{ concert.title }}</a>
+                </td>
+                {% endfor %}
+            </tr>
+        </table>
 
-<div class="col" id="upcoming-detail">
-    <h1>Saturday 23 November 13</h1>
-    <div class="centred">
-    <img src="{% static 'img/concerts/concert_3.jpg' %}" />
     </div>
-    <table>
-    <tr>
-    <td class="fixed-width"><span class="icon">[</span>7.30pm</td>
-    <td><h4>Saturday 5 October 13</h4>Tchaikovky: Symphony no.4</td>
-    </tr>
-    <tr>
-    <td><span class="icon">[</span>7.30pm</td>
-    <td><h4>Saturday 5 October 13</h4>Tchaikovky: Symphony no.4</td>
-    </tr>
-    <tr>
-    <td><span class="icon">[</span>7.30pm</td>
-    <td><h4>Saturday 5 October 13</h4>Tchaikovky: Symphony no.4</td>
-    </tr>
-    </table>
-    <p><b>Britten</b> World of the Spirit</p>
-    <p><b>Gounod</b> St. Cecilia Mass</p>
-    <p><b>Peter Taylor</b> conductor</p>
-    <p>Hallam Sinfonia are joining forces with the Hallam
-    Choral Society for a joint celebration of Benjamin
-    Britten’s 100th Birthday and St. Cecilia’s Day (patron
-    saint of music).</p>
-    <p>"This simplicity, this grandeur, this serene light which
-    rose before the musical world like a breaking dawn,
-    troubled people enormously… at first one was
-    dazzled, then charmed, then conquered."</p>
-    <p>Camile Saint-Saëns
-    (about Gounod’s St. Cecilia Mass).</p>
-    <p id="book">Click to book tickets for this concert</p>
-</div>
+
+    <div class="col" id="upcoming-detail" style="display:none"></div>
+    
 </div>
 
 {% endblock main_content %}
+
+{% block additional_js %}
+<script>
+
+$(function(){
+
+  // Bind the event.
+  $(window).hashchange( function() {
+    $( "#upcoming-detail" ).hide()
+    hash = location.hash.replace( /^#/, '' ) || 'blank'
+    if (hash != 'blank') {
+        $( "#upcoming-detail" ).load( "/upcoming/" + hash + "/", function() {
+            $( "#upcoming-detail" ).slideDown()
+        })
+    }
+  })
+
+  // Trigger the event (useful on page load).
+  $(window).hashchange();
+});
+        
+</script>
+{% endblock %}

@@ -2,69 +2,41 @@
 {% load staticfiles %}
             
 {% block main_content %}
+
  <div class="content-box">            
-            <h1>Hallam Sinfonia News</h1>
+    <h1>Hallam Sinfonia News</h1>
     <p>Latest news from the orchestra</p>
 </div>
 
 <div id="stories">
- <div class="content-box">            
-    <div class="content-text-wrapper">
-        <div class="content-text">
-            <h1>Tim Horton to do Beethoven Cycle</h1>
-            <img src="{% static 'img/concerts/concert_2.jpg' %}" />
-    <p>Tim Horton Opti occulles doluptate resed quamus atur
-sam, qui dictur, nam sequias perspit iistore nem. Itae sim
-laccum quodi dolestia quunt etur si resseque lam ut occus
-sa dust pro veni re, arum sini alis pro doluptate resed
-quamus atur sam, qui dictur, nam sequias perspit iistore
-nem. Itae sim laccum quodi dolestia quunt et doluptate
-resed quamus atur sam, qui dictur, nam sequias perspit
-iistore nem. Itae sim laccum quodi dolestia quunt et</p>
-        </div>
-    </div>
-    <div class="content-image-wrapper">
-       <img src="{% static 'img/concerts/concert_2.jpg' %}" />
-    </div>
-    <div class="clearfix"></div>
+    {% for story in news %}
+    {% include 'news_fragment.html' %}
+    {% endfor %}
 </div>
 
- <div class="content-box">            
-    <div class="content-text-wrapper">
-        <div class="content-text">
-            <h1>Another News Article</h1>
-            <img src="{% static 'img/concerts/concert_3.jpg' %}" />
-    <p>Tim Horton Opti occulles doluptate resed quamus atur
-sam, qui dictur, nam sequias perspit iistore nem. Itae sim
-laccum quodi dolestia quunt etur si resseque lam ut occus
-sa dust pro veni re, arum sini alis pro doluptate resed
-quamus atur sam, qui dictur, nam sequias perspit iistore
-nem. Itae sim laccum quodi dolestia quunt et doluptate
-resed quamus atur sam, qui dictur, nam sequias perspit
-iistore nem. Itae sim laccum quodi dolestia quunt et</p>
-        </div>
-    </div>
-    <div class="content-image-wrapper">
-       <img src="{% static 'img/concerts/concert_3.jpg' %}" />
-    </div>
-    <div class="clearfix"></div>
-</div>
-</div>
-
+{% if more %}
  <div class="content-box hand" id="more">            
-            <h1>More</h1>
+    <h1>More</h1>
 </div>
+{% endif %}
 
 {% endblock main_content %}
 
 {% block additional_js %}
 <script>
-function get_next_story() {
-    return '<div class="content-box"><div class="content-text-wrapper"><div class="content-text"><h1>Another News Article</h1><img src="{% static "img/concerts/concert_3.jpg" %}" /><p>Tim Horton Opti occulles doluptate resed quamus atur sam, qui dictur, nam sequias perspit iistore nem. Itae sim laccum quodi dolestia quunt etur si resseque lam ut occus sa dust pro veni re, arum sini alis pro doluptate resed quamus atur sam, qui dictur, nam sequias perspit iistore nem. Itae sim laccum quodi dolestia quunt et doluptatet</p></div></div><div class="content-image-wrapper"><img src="{% static "img/concerts/concert_3.jpg" %}" /></div><div class="clearfix"></div></div>'
-}
-$("#more").click(function() {
-    $("#stories").append(get_next_story());
-    $("body").find("#stories .content-box:last").hide().slideDown();
-});
+
+    $( "#more" ).click(function() {
+        last_pk = $("body").find("#stories .content-box:last").attr('id')
+        url = "/news/following/" + last_pk + "/"
+        $.get( url, function( story ) {
+            $("#stories").append( story )
+            last_story = $("body").find("#stories .content-box:last")
+            last_story.hide().slideDown();
+            if (last_story.data("more") == "False") {
+                $("#more").slideUp()
+            }
+        })
+    });
+        
 </script>
 {% endblock %}

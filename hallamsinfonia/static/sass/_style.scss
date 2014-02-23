@@ -75,8 +75,6 @@
     }
 }
 
-$yellow: rgb(215, 172, 17);
-
 @include font-face("jura", font-files("jura.ttf", "jura.woff", "jura.svg"), "jura.eot");
 @include font-face("sosa", font-files("sosa.ttf", "soa.woff", "sosa.svg"), "sosa.eot");
 
@@ -84,6 +82,7 @@ body, html {
 	background-color: #ddd;
 	font-family: 'Cabin', sans-serif;
 	color: #e6e6e6;
+	font-size: 15px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -91,16 +90,19 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 5px 0;
 	color: white;
 }
+
 h1 {
 	font-family: 'Cabin', sans-serif;
-	border-bottom: 2px solid $yellow;
+	border-bottom: 2px solid $accent;
 	margin: 5px 0px 10px 0;
 	padding-bottom: 10px;
 	font-size: 30px;
 }
+
 .smaller-p {
 	font-size: 12px;
 }
+
 a {
 	color: white;
 	&:hover {
@@ -111,6 +113,7 @@ a {
 .icon {
 	font-family: 'sosa', sans-serif;
 	padding-right: 5px;
+	font-size: 1.5em;
 }
 
 .clearfix {
@@ -147,7 +150,6 @@ table {
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	@include background(image-url("backgrounds/bg1.jpg"));
 	@include background-size(cover);
 	background-attachment: fixed;
 	background-repeat: no-repeat;
@@ -171,7 +173,7 @@ table {
 }
 
 .navbar {
-	background-color: $yellow;
+	background-color: $accent;
 	border: 0;
 	margin-bottom: 0;
 	@include border-radius(0);
@@ -187,11 +189,11 @@ table {
 	border-color: white;
 }
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
-	background-color: $yellow;
+	background-color: $accent;
 }
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav li a:hover, .navbar-inverse .navbar-nav li a:focus {
 	color: #fff;
-	background-color: tint($yellow, 20);
+	background-color: tint($accent, 20);
 }
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
@@ -234,7 +236,7 @@ table {
 		margin: 0 30px 0 30px;
 	}
 	.icon {
-		color: $yellow;
+		color: $accent;
 	}
 }
 
@@ -353,16 +355,22 @@ table {
 	}
 }
 
+.concert a {
+	text-decoration: none;
+}
+
 .hand {
 	cursor: pointer;
 	cursor: hand;
 }
 
-.conductor img {
+#conductor {
+	img {
 		margin: 0 auto;
 		padding: 0 0 10px 20px;
 		width: 180px;
 		float: right;
+	}
 }
 
 @include two_col_fixed_left_liquid_right(".fixed_left", ".liquid_right", ".liquid_right_wrapper", 150px, 20px);
