@@ -238,6 +238,22 @@ table {
 	.icon {
 		color: $accent;
 	}
+	@media screen and (min-width: 900px) {
+	    background-color: white;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        min-height: 850px;
+        width: 40px;
+        padding-left: 2px;
+        div {
+        text-align: right;
+        @include rotate(-90deg);
+        width: 850px;
+        height: 850px;
+        }
+    }
 }
 
 #conductors-list {
@@ -278,16 +294,6 @@ table {
 	#quote-src {
 		font-style:italic;
 	}
-}
-#supersidebar {
-	background-color: white;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	min-height: 850px;
-	width: 40px;
-	padding-left: 2px
 }
 
 @mixin transparent($color, $alpha) {
@@ -374,19 +380,7 @@ table {
 }
 
 @include two_col_fixed_left_liquid_right(".fixed_left", ".liquid_right", ".liquid_right_wrapper", 150px, 20px);
-	
-.visible-to-900 {
-	display: block;
-	@media screen and (min-width: 900px) {
-		display: none;
-	}
-}
-.visible-beyond-900 {
-	display: none;
-	@media screen and (min-width: 900px) {
-		display: block;
-	}
-}
+
 
 @media screen and (min-width: 700px) {
 	#upcoming-wrapper {
