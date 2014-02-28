@@ -8,11 +8,25 @@ import datetime
 class News(generic_models.News):
     image = models.ForeignKey('Image')
     
+    
+class Person(generic_models.Person):
+    """
+    A person who appears in a concert.
+    For simplicity, the 'person' model is not linked to the 'conductor' model,
+    which governs the conductors that appear on the conductors page. Moreover, 
+    the relationship is treated as many-to-one, rather than the more 'correct'
+    many-to-many.
+    """
+    concert = models.ForeignKey('Concert')
+    role = models.CharField(max_length=128, help_text='e.g. "conductor" or "trumpet"')
+    
+    class Meta:
+        verbose_name_plural = 'People'
+    
 
 class Conductor(generic_models.Person):
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='conductors', blank=True)
-    listed_on_conductors_page = models.BooleanField()
     
     def save(self, *args, **kwargs):
         """
@@ -57,7 +71,6 @@ class Concert(models.Model):
     location = models.ForeignKey('Location')
     full_price_ticket_cost = generic_fields.DecimalCurrencyField()
     booking_link = models.URLField(blank=True)
-    conductors = models.ManyToManyField('Conductor')
     description = models.TextField()
 
     @property

@@ -2,11 +2,15 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from generic.admin import SingletonAdmin
 from hallamsinfonia.models import (News, Conductor, Setting, Image, Location,
-    Concert, Piece, ConcessionaryTicket)
+    Concert, Piece, ConcessionaryTicket, Person)
 
 
 class TicketInline(admin.TabularInline):
     model = ConcessionaryTicket
+    
+
+class PeopleInline(admin.TabularInline):
+    model = Person
   
     
 class PieceInline(admin.TabularInline):
@@ -14,7 +18,7 @@ class PieceInline(admin.TabularInline):
 
 
 class ConcertAdmin(admin.ModelAdmin):
-    inlines = (TicketInline, PieceInline)
+    inlines = (TicketInline, PeopleInline, PieceInline,)
 
 
 admin.site.unregister(Group)

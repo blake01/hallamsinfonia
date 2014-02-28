@@ -125,7 +125,6 @@ def set_default_settings(site_url, local_socket_identifier, local_abspath,
         'django.contrib.messages.middleware.MessageMiddleware',
         # Uncomment the next line for simple clickjacking protection:
         # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-        'lockdown.middleware.LockdownMiddleware',
     )
 
     ROOT_URLCONF = '%s.urls' % (SITE_NAME)
@@ -147,7 +146,6 @@ def set_default_settings(site_url, local_socket_identifier, local_abspath,
         # Uncomment the next line to enable admin documentation:
         'django.contrib.admindocs',
         'south',
-        'lockdown',
     )
 
     LOCKDOWN_PASSWORDS = ('j29_dev')
