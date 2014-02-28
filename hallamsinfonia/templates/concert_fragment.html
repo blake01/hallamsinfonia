@@ -33,4 +33,6 @@
 
 <p>{{ concert.description|linebreaks }}</p>
 
+{% if concert.booking_link %}
 <a href="{{ concert.booking_link }}" target="_blank" ><p id="book">Click to book tickets for this concert</p></a>
+{% endif %}
