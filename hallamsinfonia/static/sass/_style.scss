@@ -83,6 +83,7 @@ body, html {
 	font-family: 'Cabin', sans-serif;
 	color: #e6e6e6;
 	font-size: 15px;
+	min-width: 280px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -151,6 +152,7 @@ table {
 	height: auto !important;
 	height: 100%;
 	@include background-size(cover);
+	-ms-behavior: url(/static/css/backgroundsize.min.htc);
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 }
@@ -165,7 +167,10 @@ table {
 .container {
 	margin-left: 0;
 	min-height: 100%;
+	width: 100%;
+	max-width: 1200px;
 }
+
 .meso_container {
 	position: relative;
 	min-height: 100%;
@@ -185,12 +190,15 @@ table {
 .navbar-inverse .navbar-nav>li>a {
 	color: white;
 }
+
 .navbar-inverse .navbar-toggle {
 	border-color: white;
 }
+
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
 	background-color: $accent;
 }
+
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav li a:hover, .navbar-inverse .navbar-nav li a:focus {
 	color: #fff;
 	background-color: tint($accent, 20);
@@ -202,14 +210,17 @@ table {
 
 .navbar-brand {
 	padding: 0;
+	position: relative;
 	img {
 		height: 50px;
 		padding-right: 10px;
 	}
 }
+
 .navbar-header {
 	padding: 15px 0 15px 0;
 }
+
 .navbar-nav {
 	margin: 0 -15px 0 -15px;
 	li a {
@@ -221,9 +232,11 @@ table {
 	margin-left: 15px;
 }
 
-.move_to_side {
-	width: 100%;
+.nowrap {
+	white-space:nowrap;
+	padding: 0 15px 0 15px;
 }
+
 .footer {
 	font-family: 'jura', serif;
 	font-size: 12pt;
@@ -231,6 +244,9 @@ table {
 	text-align: center;
 	color: #333;
 	padding: 10px;
+	> div {
+		max-width: 1180px;
+	}
 	.social {
 		display:inline-block;
 		margin: 0 30px 0 30px;
@@ -238,22 +254,10 @@ table {
 	.icon {
 		color: $accent;
 	}
-	@media screen and (min-width: 900px) {
-	    background-color: white;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        min-height: 850px;
-        width: 40px;
-        padding-left: 2px;
-        div {
-        text-align: right;
-        @include rotate(-90deg);
-        width: 850px;
-        height: 850px;
-        }
-    }
+	a {
+		color: #333;
+		text-decoration: none;
+	}
 }
 
 #conductors-list {
@@ -290,6 +294,7 @@ table {
 #quote {
 	position: relative;
 	margin: 20px;
+	max-width: 430px;
 	color: white;
 	#quote-src {
 		font-style:italic;
@@ -341,13 +346,14 @@ table {
 	padding-top: 0;
 	padding-bottom: 20px;
 }
-.content-image-wrapper, .content-image-wrapper img {
+.content-image-wrapper {
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-ms-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 	transition: all 0.5s ease;
 }
+
 .content-text {
 	margin-right: 0;
 	.icon {
@@ -425,91 +431,20 @@ table {
 	}
 }
 
-@media screen and (min-width: 768px) and (max-width: 899px) {
+@media screen and (min-width: 768px) {
 	.navbar-nav {
 		float: right;
-		padding: 0;
-		li a { 
-			border: 0;
-			padding: 30px 20px 30px 20px;
+		li {
+			height: 80px;
+			display: table;
 		}
 	}	
-}
-
-@media screen and (min-width: 900px) {
-	body, html {
-		height: 100%;
-	}
-	#quote {
-		height: 150px;
-		width: 200px;
-		margin: 10px 0 0 10px;
-	}
-	.navbar {
-		li, img {
-			width: 100%;
-			height: auto;
-		}
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 40px;
-		min-height: 850px;
-		width: 180px;
-	}
-	.move_to_side {
-		@include background(image-url("swords_20.png") left bottom no-repeat);
-		background-size: 360px 360px;
-	}
-	.meso_container {
-		margin-left: 220px;	
-	}
-	#main_container {
-		padding-top: 30px;
-		padding-left: 30px;
-	}
-	#main_container, .meso_container {
-		min-height: 850px;
-		height: 100%;
-	}
-	.navbar-nav {
-		padding-top: 50px;
-	}
-	.move_to_side {
-		padding-top: 20px;
-	}
-	h1 {
-		margin-left: -40px;
-		padding-left: 40px
-	}
-	.content-box {
-		padding-left: 40px;
-		margin-left: -30px;
-	}
-	#upcoming-wrapper {
-		margin-left: -30px;
-		.col:nth-child(1) {padding-left: 40px; }
-	}
 	.navbar-nav li a {
-		border-width: 2px;
+		border: 0;
+		padding: 30px 20px 30px 20px;
+		height: 100%;
+		display: table-cell;
+		vertical-align: middle;
 	}
-}
-
-@media screen and (min-width: 1200px) {
-    .content-image-wrapper {
-        margin-left: -320px;
-        width: 320px;
-        img {
-        	padding: 0;
-        }
-    }
-    #about-images {
-    	img {
-    		padding-bottom: 20px;
-    	}
-    }
-    .content-text {
-        margin-right: 340px;
-    }
 }
 	
