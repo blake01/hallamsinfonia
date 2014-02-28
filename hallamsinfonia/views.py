@@ -22,9 +22,8 @@ The non-Ajax views
 def home(request):
 	common = common_context()
 	now = timezone.now()
-	concerts_in_season = common['settings'].live_season.concerts()
 	context_dict = {
-		'next_concert': concerts_in_season.filter(date_and_time__gt=now).first(),
+		'next_concert': Concert.filter(date_and_time__gt=now).first(),
 		'latest_news': News.objects.filter(pub_date__lte=now.date()).first(),
 		'color': 'yellow',
 	}
@@ -34,9 +33,8 @@ def home(request):
 def upcoming(request):
 	common = common_context()
 	now = timezone.now()
-	concerts_in_season = common['settings'].live_season.concerts()
 	context_dict = {
-		'concerts': concerts_in_season.filter(date_and_time__gt=now),
+		'concerts': Concert.filter(date_and_time__gt=now),
 		'color': 'red',
 	}
 	context_dict.update(common)

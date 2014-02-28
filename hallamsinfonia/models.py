@@ -31,7 +31,6 @@ class Setting(generic_models.Singleton):
     about_image_3 = models.ForeignKey('Image', related_name='about_image_3')
     quote_text = models.CharField(max_length=256)
     quote_source = models.CharField(max_length=128)
-    live_season = models.ForeignKey('Season')
     
     
 class Image(generic_models.Image):
@@ -49,30 +48,6 @@ class Image(generic_models.Image):
     
 class Location(generic_models.UKAddress):
     pass
-    
-
-class Season(models.Model):
-    """
-    A named period of time. Concerts are filtered by season.
-    """
-    name = models.CharField(max_length=128, help_text="e.g. '2012-13 Season'")
-    start = models.DateField()
-    end = models.DateField()
-        
-    def concerts(self):
-        """
-        Dynamically return a queryset of concerts with dates in this season
-        """
-        # Convert dates to datetimes to facilitate comparison
-        start = datetime.datetime(self.start.year, self.start.month, self.start.day)
-        end = datetime.datetime(self.end.year, self.end.month, self.end.day)
-        return Concert.objects.filter(date_and_time__gte=start, date_and_time__lte=end)
-        
-    def __unicode__(self):
-        return self.name
-        
-    class Meta:
-		ordering = ['start']
         
             
 class Concert(models.Model):
