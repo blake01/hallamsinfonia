@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from generic.admin import SingletonAdmin
-from hallamsinfonia.models import (News, Conductor, Setting, Image, Location, Season,
+from hallamsinfonia.models import (News, Conductor, Setting, Image, Location,
     Concert, Piece, ConcessionaryTicket)
 
 
@@ -22,6 +22,5 @@ admin.site.register(News)
 admin.site.register(Conductor)
 admin.site.register(Image)
 admin.site.register(Location)
-admin.site.register(Season)
 admin.site.register(Concert, ConcertAdmin)
 admin.site.register(Setting, SingletonAdmin)
