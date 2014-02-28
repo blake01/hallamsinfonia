@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
-import json
 import random
 from hallamsinfonia.models import News, Concert, Conductor, Setting
 
@@ -23,7 +22,7 @@ def home(request):
 	common = common_context()
 	now = timezone.now()
 	context_dict = {
-		'next_concert': Concert.filter(date_and_time__gt=now).first(),
+		'next_concert': Concert.objects.filter(date_and_time__gt=now).first(),
 		'latest_news': News.objects.filter(pub_date__lte=now.date()).first(),
 		'color': 'yellow',
 	}
@@ -34,7 +33,7 @@ def upcoming(request):
 	common = common_context()
 	now = timezone.now()
 	context_dict = {
-		'concerts': Concert.filter(date_and_time__gt=now),
+		'concerts': Concert.objects.filter(date_and_time__gt=now),
 		'color': 'red',
 	}
 	context_dict.update(common)
