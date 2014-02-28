@@ -69,7 +69,7 @@ def about(request):
     
 def conductors(request):
 	context_dict = {
-		'conductors': Conductor.objects.filter(listed_on_conductors_page=True),
+		'conductors': Conductor.objects.all(),
 		'color': 'blue',
 	}
 	context_dict.update(common_context())

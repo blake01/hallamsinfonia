@@ -22,8 +22,16 @@
                 {% endif %}
             </div>
             <div class="fifty-float rhs">
-                <p class="inset"><span class="icon reset">[</span>{{ next_concert.time }}</p>
-                <p class="inset"><span class="icon reset">o</span>{{ next_concert.location }}</p>
+                <table class="icons-and-descriptions">
+                    <tr>
+                        <td class="icon thin-cell">[</td>
+                        <td>{{ next_concert.time }}</td>
+                    </tr>
+                    <tr>
+                        <td class="icon thin-cell">o</td>
+                        <td>{{ next_concert.location }}</td>
+                    </tr>
+                </table>
                 <p class="lowered"><a href="{% url 'upcoming' %}#{{ next_concert.pk }}">read more...</a></p>
             </div>
         </div>

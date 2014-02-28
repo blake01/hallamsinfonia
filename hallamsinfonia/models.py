@@ -45,6 +45,8 @@ class Setting(generic_models.Singleton):
     about_image_3 = models.ForeignKey('Image', related_name='about_image_3')
     quote_text = models.CharField(max_length=256)
     quote_source = models.CharField(max_length=128)
+    facebook_link = models.URLField()
+    twitter_link = models.URLField()
     
     
 class Image(generic_models.Image):
@@ -75,13 +77,21 @@ class Concert(models.Model):
 
     @property
     def date(self):
-        """ Return a string representation of the date, e.g. 07 December """
-        return self.date_and_time.strftime('%d %B')
+        """ Return a string representation of the date, e.g. Sat 07 December 13 """
+        return self.date_and_time.strftime('%A %d %B %y')
     
     @property
     def time(self):
-        """ Return a string representation of the time, e.g. 19:30 """
-        return self.date_and_time.strftime('%H:%M')
+        """ Return a string representation of the time, e.g. 9:30 am """
+        return self.date_and_time.strftime('%I:%M %p').lstrip('0').lower()
+        
+    @property
+    def tickets_string(self):
+        """ Return a string representation of the various tickets available """
+        s = '&pound;%s'%(self.full_price_ticket_cost)
+        for ticket in self.concessionaryticket_set.all():
+            s += ', &pound;%s %s'%(ticket.ticket_cost, ticket.name)
+        return s
 
     def __unicode__(self):
         return '%s on %s'%(self.title, self.date)

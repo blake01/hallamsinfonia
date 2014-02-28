@@ -4,34 +4,33 @@
     <img src="{{ concert.image.image.url }}" alt="{{ concert.image.title }}" />
 </div>
 
-<table>
-    <tr></tr>
+<table class="icons-and-descriptions">
     <tr>
-        <td class="icon">[</td>
+        <td class="icon thin-cell">[</td>
         <td>{{ concert.time }}</td>
     </tr>
     <tr>
-        <td class="icon">o</td>
+        <td class="icon thin-cell">o</td>
         <td>{{ concert.location }}</td>
     </tr>
     <tr>
-        <td class="icon">l</td>
-        <td>{{ concert.full_price_ticket_cost }}</td>
+        <td class="icon thin-cell">l</td>
+        <td>{{ concert.tickets_string|safe }}</td>
     </tr>
 </table>
 
-<p>
+<p class="larger-p">
 {% for piece in concert.piece_set.all %}
-<b>{{ piece.composer }}</b> {{ piece.title }}<br />
+<b>{{ piece.composer }}</b>&nbsp;&nbsp;{{ piece.title }}<br />
 {% endfor %}
 </p>
 
-<p>
-{% for conductor in concert.conductors.all %}
-<b>{{ conductor }}</b> conductor<br />
+<p class="larger-p">
+{% for person in concert.person_set.all %}
+<b>{{ person }}</b>&nbsp;&nbsp;{{ person.role }}<br />
 {% endfor %}
 </p>
 
 <p>{{ concert.description|linebreaks }}</p>
 
-<p id="book"><a href="{{ concert.booking_link }}" target="_blank" >Click to book tickets for this concert</p></a>
+<a href="{{ concert.booking_link }}" target="_blank" ><p id="book">Click to book tickets for this concert</p></a>

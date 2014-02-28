@@ -100,8 +100,15 @@ h1 {
 	font-size: 30px;
 }
 
+h4 {
+	font-size: 20px;
+}
+
 .smaller-p {
 	font-size: 12px;
+}
+.larger-p {
+	font-size: 16px;
 }
 
 a {
@@ -111,10 +118,18 @@ a {
 	}
 }
 
+b {
+	color: white;
+}
+
+.light-grey {
+	color: #e6e6e6;
+}
+
 .icon {
 	font-family: 'sosa', sans-serif;
-	padding-right: 5px;
 	font-size: 1.5em;
+	color: white;
 }
 
 .clearfix {
@@ -125,7 +140,7 @@ a {
 	padding: 0;
 }
 
-table {
+#concerts-table {
 	width: 100%;
 	border-spacing: 12px;
 	margin-top: -10px;
@@ -139,6 +154,29 @@ table {
 	}
 	td {
 		vertical-align:top;
+	}
+}
+
+.icons-and-descriptions {
+	width: 100%;
+	border-spacing: 5px;
+	margin-bottom: 10px;
+	td {
+		vertical-align: middle;
+	}
+	.thin-cell {
+		width: 40px;
+	}
+}
+
+#book {
+	border: 2px solid $accent;
+	text-align: center;
+	padding: 10px;
+	margin-top: 20px;
+	&:hover {
+		border-width: 3px;
+		padding: 9px;
 	}
 }
 
@@ -279,16 +317,16 @@ table {
 	padding-right: 10px;
 }
 .rhs {
-	padding-left: 10px;
-	.inset {
-		margin-left: 20px;
-	}
-	.reset {
-		margin-left: -20px;
-	}
-	.lowered {
-		margin-top: 15px;
-	}
+	padding-left: 20px;
+}
+.inset {
+	margin-left: 20px;
+}
+.reset {
+	margin-left: -20px;
+}
+.lowered {
+	margin-top: 15px;
 }
 
 #quote {
@@ -318,7 +356,7 @@ table {
 
 .content-box, .col {
 	@include transparent(#000, 0.5);
-	padding: 10px 20px 10px 20px;
+	padding: 10px 25px 10px 25px;
 }
 .col {
 	margin-bottom: 20px;
@@ -330,6 +368,9 @@ table {
 
 .centred {
 	text-align: center;
+	img {
+		padding: 5px 0 20px 0;
+	}
 }
 
 @include two_col_liquid_left_fixed_right('.content-image-wrapper', '.content-text-wrapper', '.content-text', 270px, 20px);
@@ -356,9 +397,6 @@ table {
 
 .content-text {
 	margin-right: 0;
-	.icon {
-		color: #fff;
-	}
 	a {
 		text-decoration: none;
 		&:hover {

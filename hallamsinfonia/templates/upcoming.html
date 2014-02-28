@@ -8,19 +8,20 @@
     <div class="col">
         <h1>2013-14 season</h1>
         
-        <table>
+        <table id="concerts-table">
+            {% for concert in concerts %}
             <tr class="concert">
-                {% for concert in concerts %}
                 <td class="fixed-width">
                     <a href="#{{ concert.pk }}">
                         <img src="{{ concert.image.image.url }}" alt="{{ concert.image.title }}" />
                     </a>
                 </td>
                 <td>
-                    <a href="#{{ concert.pk }}"><h4>{{ concert.date }}</h4>{{ concert.title }}</a>
+                    <a href="#{{ concert.pk }}"><h4>{{ concert.date }}</h4></a>
+                    <a href="#{{ concert.pk }}" class="light-grey larger-p">{{ concert.title }}</a>
                 </td>
-                {% endfor %}
             </tr>
+            {% endfor %}
         </table>
 
     </div>
