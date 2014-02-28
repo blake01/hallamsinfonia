@@ -16,9 +16,9 @@
             <img src="{{ next_concert.image.image.url }}" alt="{{ next_concert.image.title }}" />
             <div class="fifty-float lhs">
                 <h3>{{ next_concert.date }}</h3>
-                <p>{{ next_concert.title }}</p>
+                <p class="larger-p">{{ next_concert.title }}</p>
                 {% if next_concert.subtitle %}
-                <p class="smaller-p">{{ next_concert.subtitle }}</p>
+                <p>{{ next_concert.subtitle }}</p>
                 {% endif %}
             </div>
             <div class="fifty-float rhs">
