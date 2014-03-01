@@ -76,7 +76,7 @@
 }
 
 @include font-face("jura", font-files("jura.ttf", "jura.woff", "jura.svg"), "jura.eot");
-@include font-face("sosa", font-files("sosa.ttf", "soa.woff", "sosa.svg"), "sosa.eot");
+@include font-face("sosa", font-files("sosa.ttf", "sosa.woff", "sosa.svg"), "sosa.eot");
 
 body, html {
 	background-color: #ddd;
