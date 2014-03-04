@@ -34,6 +34,7 @@ def upcoming(request):
 	now = timezone.now()
 	context_dict = {
 		'concerts': Concert.objects.filter(date_and_time__gt=now),
+		'past_concerts': Concert.objects.filter(date_and_time__lt=now),
 		'color': 'red',
 	}
 	context_dict.update(common)

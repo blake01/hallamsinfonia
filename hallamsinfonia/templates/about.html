@@ -7,7 +7,7 @@
     <div class="content-text-wrapper">
         <div class="content-text">
             <img src="{{ settings.about_image_1.image.url }}" alt="{{ settings.about_image_1.title }}" />
-            <p>{{ settings.about_the_orchestra|linebreaks|safe }}</p>
+            <p>{{ settings.about_the_orchestra|safe|linebreaks }}</p>
         </div>
     </div>
     <div class="content-image-wrapper" id="about-images">

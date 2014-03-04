@@ -6,10 +6,28 @@
 <div id="upcoming-wrapper">
 
     <div class="col">
-        <h1>2013-14 season</h1>
+        <h1>Upcoming Concerts</h1>
         
-        <table id="concerts-table">
+        <table class="concerts-table">
             {% for concert in concerts %}
+            <tr class="concert">
+                <td class="fixed-width">
+                    <a href="#{{ concert.pk }}">
+                        <img src="{{ concert.image.image.url }}" alt="{{ concert.image.title }}" />
+                    </a>
+                </td>
+                <td>
+                    <a href="#{{ concert.pk }}"><h4>{{ concert.date }}</h4></a>
+                    <a href="#{{ concert.pk }}" class="light-grey larger-p">{{ concert.title }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <h1>Past Concerts</h1>
+        
+        <table class="concerts-table">
+            {% for concert in past_concerts %}
             <tr class="concert">
                 <td class="fixed-width">
                     <a href="#{{ concert.pk }}">
@@ -44,6 +62,9 @@ $(function(){
     if (hash != 'blank') {
         $( "#upcoming-detail" ).load( "/upcoming/" + hash + "/", function() {
             $( "#upcoming-detail" ).slideDown()
+            $('html, body').animate({
+                scrollTop: ($("#upcoming-detail").offset().top - 10)
+            }, 600);
         })
     }
   })

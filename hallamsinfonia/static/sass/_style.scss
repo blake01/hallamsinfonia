@@ -140,10 +140,11 @@ b {
 	padding: 0;
 }
 
-#concerts-table {
+.concerts-table {
 	width: 100%;
 	border-spacing: 12px;
 	margin-top: -10px;
+	margin-bottom: 21px;
     border-collapse: separate;
     .fixed-width {
     	width: 148px;

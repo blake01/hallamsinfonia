@@ -2,4 +2,4 @@
 {% if conductor.image %}
 <img src="{{ conductor.image.url }}" alt="{{ conductor }}" />
 {% endif %}
-<p>{{ conductor.description|linebreaks|safe }}</p>
+<p>{{ conductor.description|safe|linebreaks }}</p>
