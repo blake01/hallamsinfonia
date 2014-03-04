@@ -347,40 +347,6 @@ CREATE TABLE hallamsinfonia_concert (
 ALTER TABLE public.hallamsinfonia_concert OWNER TO blake01;
 
 --
--- Name: hallamsinfonia_concert_conductors; Type: TABLE; Schema: public; Owner: blake01; Tablespace: 
---
-
-CREATE TABLE hallamsinfonia_concert_conductors (
-    id integer NOT NULL,
-    concert_id integer NOT NULL,
-    conductor_id integer NOT NULL
-);
-
-
-ALTER TABLE public.hallamsinfonia_concert_conductors OWNER TO blake01;
-
---
--- Name: hallamsinfonia_concert_conductors_id_seq; Type: SEQUENCE; Schema: public; Owner: blake01
---
-
-CREATE SEQUENCE hallamsinfonia_concert_conductors_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.hallamsinfonia_concert_conductors_id_seq OWNER TO blake01;
-
---
--- Name: hallamsinfonia_concert_conductors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: blake01
---
-
-ALTER SEQUENCE hallamsinfonia_concert_conductors_id_seq OWNED BY hallamsinfonia_concert_conductors.id;
-
-
---
 -- Name: hallamsinfonia_concert_id_seq; Type: SEQUENCE; Schema: public; Owner: blake01
 --
 
@@ -445,8 +411,7 @@ CREATE TABLE hallamsinfonia_conductor (
     first_name character varying(128) NOT NULL,
     last_name character varying(128) NOT NULL,
     description text NOT NULL,
-    image character varying(100) NOT NULL,
-    listed_on_conductors_page boolean NOT NULL
+    image character varying(100) NOT NULL
 );
 
 
@@ -581,6 +546,42 @@ ALTER SEQUENCE hallamsinfonia_news_id_seq OWNED BY hallamsinfonia_news.id;
 
 
 --
+-- Name: hallamsinfonia_person; Type: TABLE; Schema: public; Owner: blake01; Tablespace: 
+--
+
+CREATE TABLE hallamsinfonia_person (
+    id integer NOT NULL,
+    first_name character varying(128) NOT NULL,
+    last_name character varying(128) NOT NULL,
+    concert_id integer NOT NULL,
+    role character varying(128) NOT NULL
+);
+
+
+ALTER TABLE public.hallamsinfonia_person OWNER TO blake01;
+
+--
+-- Name: hallamsinfonia_person_id_seq; Type: SEQUENCE; Schema: public; Owner: blake01
+--
+
+CREATE SEQUENCE hallamsinfonia_person_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hallamsinfonia_person_id_seq OWNER TO blake01;
+
+--
+-- Name: hallamsinfonia_person_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: blake01
+--
+
+ALTER SEQUENCE hallamsinfonia_person_id_seq OWNED BY hallamsinfonia_person.id;
+
+
+--
 -- Name: hallamsinfonia_piece; Type: TABLE; Schema: public; Owner: blake01; Tablespace: 
 --
 
@@ -616,41 +617,6 @@ ALTER SEQUENCE hallamsinfonia_piece_id_seq OWNED BY hallamsinfonia_piece.id;
 
 
 --
--- Name: hallamsinfonia_season; Type: TABLE; Schema: public; Owner: blake01; Tablespace: 
---
-
-CREATE TABLE hallamsinfonia_season (
-    id integer NOT NULL,
-    name character varying(128) NOT NULL,
-    start date NOT NULL,
-    "end" date NOT NULL
-);
-
-
-ALTER TABLE public.hallamsinfonia_season OWNER TO blake01;
-
---
--- Name: hallamsinfonia_season_id_seq; Type: SEQUENCE; Schema: public; Owner: blake01
---
-
-CREATE SEQUENCE hallamsinfonia_season_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.hallamsinfonia_season_id_seq OWNER TO blake01;
-
---
--- Name: hallamsinfonia_season_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: blake01
---
-
-ALTER SEQUENCE hallamsinfonia_season_id_seq OWNED BY hallamsinfonia_season.id;
-
-
---
 -- Name: hallamsinfonia_setting; Type: TABLE; Schema: public; Owner: blake01; Tablespace: 
 --
 
@@ -662,7 +628,8 @@ CREATE TABLE hallamsinfonia_setting (
     about_image_3_id integer NOT NULL,
     quote_text character varying(256) NOT NULL,
     quote_source character varying(128) NOT NULL,
-    live_season_id integer NOT NULL
+    facebook_link character varying(200) NOT NULL,
+    twitter_link character varying(200) NOT NULL
 );
 
 
@@ -791,13 +758,6 @@ ALTER TABLE ONLY hallamsinfonia_concert ALTER COLUMN id SET DEFAULT nextval('hal
 -- Name: id; Type: DEFAULT; Schema: public; Owner: blake01
 --
 
-ALTER TABLE ONLY hallamsinfonia_concert_conductors ALTER COLUMN id SET DEFAULT nextval('hallamsinfonia_concert_conductors_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: blake01
---
-
 ALTER TABLE ONLY hallamsinfonia_concessionaryticket ALTER COLUMN id SET DEFAULT nextval('hallamsinfonia_concessionaryticket_id_seq'::regclass);
 
 
@@ -833,14 +793,14 @@ ALTER TABLE ONLY hallamsinfonia_news ALTER COLUMN id SET DEFAULT nextval('hallam
 -- Name: id; Type: DEFAULT; Schema: public; Owner: blake01
 --
 
-ALTER TABLE ONLY hallamsinfonia_piece ALTER COLUMN id SET DEFAULT nextval('hallamsinfonia_piece_id_seq'::regclass);
+ALTER TABLE ONLY hallamsinfonia_person ALTER COLUMN id SET DEFAULT nextval('hallamsinfonia_person_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: blake01
 --
 
-ALTER TABLE ONLY hallamsinfonia_season ALTER COLUMN id SET DEFAULT nextval('hallamsinfonia_season_id_seq'::regclass);
+ALTER TABLE ONLY hallamsinfonia_piece ALTER COLUMN id SET DEFAULT nextval('hallamsinfonia_piece_id_seq'::regclass);
 
 
 --
@@ -928,9 +888,6 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 34	Can add location	12	add_location
 35	Can change location	12	change_location
 36	Can delete location	12	delete_location
-37	Can add season	13	add_season
-38	Can change season	13	change_season
-39	Can delete season	13	delete_season
 40	Can add concert	14	add_concert
 41	Can change concert	14	change_concert
 42	Can delete concert	14	delete_concert
@@ -940,6 +897,9 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 46	Can add concessionary ticket	16	add_concessionaryticket
 47	Can change concessionary ticket	16	change_concessionaryticket
 48	Can delete concessionary ticket	16	delete_concessionaryticket
+49	Can add person	17	add_person
+50	Can change person	17	change_person
+51	Can delete person	17	delete_person
 \.
 
 
@@ -947,7 +907,7 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: blake01
 --
 
-SELECT pg_catalog.setval('auth_permission_id_seq', 48, true);
+SELECT pg_catalog.setval('auth_permission_id_seq', 51, true);
 
 
 --
@@ -956,7 +916,7 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 48, true);
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
 1	pbkdf2_sha256$12000$BK6IYZUOdbP7$AL7jjX9gdfqXQ7ps+JBs8NVVXq8i1i+a7tdlstVdcLw=	2014-02-23 22:22:37.862677+00	t	blake			blakehemingway@gmail.com	t	t	2014-01-28 11:15:31.357478+00
-2	pbkdf2_sha256$12000$lg3zr6uxMCa0$ELRSTPDSV+8Bz+oGwr6ahYv5TC4EemOb2sYSfC/LNX8=	2014-02-25 16:17:25+00	t	gareth.widdowson	Gareth	Widdowson		t	t	2014-02-25 14:36:05+00
+2	pbkdf2_sha256$12000$lg3zr6uxMCa0$ELRSTPDSV+8Bz+oGwr6ahYv5TC4EemOb2sYSfC/LNX8=	2014-02-28 23:11:07.189962+00	t	gareth.widdowson	Gareth	Widdowson		t	t	2014-02-25 14:36:05+00
 \.
 
 
@@ -1002,7 +962,6 @@ SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
 --
 
 COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, object_repr, action_flag, change_message) FROM stdin;
-1	2014-02-23 09:20:33.332354+00	1	13	1	Season object	1	
 2	2014-02-23 09:28:04.87247+00	1	9	1	Natalia  Luis-Bassa	1	
 3	2014-02-23 11:04:29.396835+00	1	11	1	Concert 1	1	
 4	2014-02-23 11:05:06.275955+00	1	12	1	Ecclesall Parish Church, Sheffield	1	
@@ -1065,6 +1024,21 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 61	2014-02-25 16:38:07.948276+00	2	11	14	Bassoon	1	
 62	2014-02-25 16:38:21.588916+00	2	11	15	Orchestra	1	
 63	2014-02-25 16:38:23.153912+00	2	10	2	Settings, Defaults and Parameters	2	Changed about_image_1, about_image_2 and about_image_3.
+64	2014-02-28 19:17:17.076416+00	2	14	2	Tchaikovsky: Symphony no.4 on Saturday 05 October 13	2	Added person "Sarah Estill". Added person "Richard Laing".
+65	2014-02-28 19:19:23.205189+00	2	14	4	Enigma Variations & Don Quixote on Saturday 08 March 14	2	Changed title. Added person "Richard Jenkinson". Added person "Louise Williams". Added person "Natalia Luis-Bassa".
+66	2014-02-28 19:19:35.952655+00	2	14	3	St. Cecilia Mass on Saturday 23 November 13	2	Added person "Peter Taylor".
+67	2014-02-28 19:19:50.160845+00	2	14	5	Symphonie Fantastique on Saturday 10 May 14	2	Added person "Natalia Luis-Bassa".
+68	2014-02-28 23:11:43.59405+00	2	14	5	Symphonie Fantastique on Saturday 10 May 14	2	Changed date_and_time.
+69	2014-03-02 15:55:02.529194+00	2	9	1	Natalia  Luis-Bassa	2	Changed description and image.
+70	2014-03-02 15:56:36.783957+00	2	9	1	Natalia  Luis-Bassa	2	Changed description.
+71	2014-03-02 15:57:26.85434+00	2	9	1	Natalia  Luis-Bassa	2	Changed description.
+72	2014-03-03 17:10:04.966667+00	2	8	1	Tim Horton to do Beethoven Cycle - 2013-12-01	2	Changed content.
+73	2014-03-03 17:11:54.430725+00	2	8	1	Tim Horton to do Beethoven Cycle - 2013-12-01	2	Changed content.
+74	2014-03-03 17:12:13.200252+00	2	8	1	Tim Horton to do Beethoven Cycle - 2013-12-01	2	Changed content.
+75	2014-03-03 17:12:21.68068+00	2	8	1	Tim Horton to do Beethoven Cycle - 2013-12-01	2	Changed content.
+76	2014-03-03 17:19:04.584867+00	2	8	1	Tim Horton to do Beethoven Cycle - 2013-12-01	2	No fields changed.
+77	2014-03-03 17:25:26.707583+00	2	8	1	Tim Horton to do Beethoven Cycle - 2013-12-01	2	Changed content.
+78	2014-03-03 17:28:03.306631+00	2	10	2	Settings, Defaults and Parameters	2	Changed about_the_orchestra, facebook_link and twitter_link.
 \.
 
 
@@ -1072,7 +1046,7 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: blake01
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 63, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 78, true);
 
 
 --
@@ -1092,10 +1066,10 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 10	setting	hallamsinfonia	setting
 11	image	hallamsinfonia	image
 12	location	hallamsinfonia	location
-13	season	hallamsinfonia	season
 14	concert	hallamsinfonia	concert
 15	piece	hallamsinfonia	piece
 16	concessionary ticket	hallamsinfonia	concessionaryticket
+17	person	hallamsinfonia	person
 \.
 
 
@@ -1103,7 +1077,7 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: blake01
 --
 
-SELECT pg_catalog.setval('django_content_type_id_seq', 16, true);
+SELECT pg_catalog.setval('django_content_type_id_seq', 17, true);
 
 
 --
@@ -1120,6 +1094,14 @@ iyj1cwcdb6nq9x6iwww9mdh2469ptrfs	OGFkNTFlOTBjMDY5NGE1ZjRkMmMxNGVmMDMyZmFkOGQ5ZDg
 saj6y7mhqml601mui4goxw1xpp0tjju6	YzUwNDMxMWFhY2JiODFlOWY5ZDVlMzc1N2M4NTdhNmE5NzgzZmEzMjp7ImxvY2tkb3duLWFsbG93IjoiajI5X2RldiJ9	2014-03-10 00:08:55.71651+00
 5ki0deqqdbp7478ou4ttdji8osr7e0ov	YzUwNDMxMWFhY2JiODFlOWY5ZDVlMzc1N2M4NTdhNmE5NzgzZmEzMjp7ImxvY2tkb3duLWFsbG93IjoiajI5X2RldiJ9	2014-03-11 15:20:52.036902+00
 a1r6osatz6yeyj7xtxlnudj36h2al0uf	MmE4NTAyZDQxNjYyNjZhY2MzNjE1YTVmNzBlYzQzZGI2M2ExYjQ2Yjp7ImxvY2tkb3duLWFsbG93IjoiajI5X2RldiIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=	2014-03-11 16:17:25.171443+00
+kxxrpq5ldw5bo3ssz1i0iaggedql0gii	YzUwNDMxMWFhY2JiODFlOWY5ZDVlMzc1N2M4NTdhNmE5NzgzZmEzMjp7ImxvY2tkb3duLWFsbG93IjoiajI5X2RldiJ9	2014-03-11 20:22:37.160574+00
+08ztgfqrifbem0c4t9og0uvwdpjy30u6	YzUwNDMxMWFhY2JiODFlOWY5ZDVlMzc1N2M4NTdhNmE5NzgzZmEzMjp7ImxvY2tkb3duLWFsbG93IjoiajI5X2RldiJ9	2014-03-11 23:53:23.122545+00
+kn2dodvr9x2o6y9atqssjloipzryncjf	YzUwNDMxMWFhY2JiODFlOWY5ZDVlMzc1N2M4NTdhNmE5NzgzZmEzMjp7ImxvY2tkb3duLWFsbG93IjoiajI5X2RldiJ9	2014-03-13 18:16:56.794459+00
+uqvqpsgzudtj7w9tdvihgg0wk5h3yz2v	YzUwNDMxMWFhY2JiODFlOWY5ZDVlMzc1N2M4NTdhNmE5NzgzZmEzMjp7ImxvY2tkb3duLWFsbG93IjoiajI5X2RldiJ9	2014-03-14 10:51:22.475979+00
+rx6mjfxmcdpebyugmnt8h1brq9vftb1i	YzUwNDMxMWFhY2JiODFlOWY5ZDVlMzc1N2M4NTdhNmE5NzgzZmEzMjp7ImxvY2tkb3duLWFsbG93IjoiajI5X2RldiJ9	2014-03-14 12:10:56.142928+00
+p63p8dth0dm34n6xd7dvr2jhl8u1t6xt	YzUwNDMxMWFhY2JiODFlOWY5ZDVlMzc1N2M4NTdhNmE5NzgzZmEzMjp7ImxvY2tkb3duLWFsbG93IjoiajI5X2RldiJ9	2014-03-14 12:11:40.104056+00
+2v30dvejrbmvmcuy22z7zlpbq56m8huh	NWIwMzVhZWE0NmRhNjc5MzNlNDQzMDM3MmM3NTA2N2JhYTlkMDdjMDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=	2014-03-14 19:15:30.774665+00
+p98qso6n0b3hv6ttgca3lei79du2n03k	NWIwMzVhZWE0NmRhNjc5MzNlNDQzMDM3MmM3NTA2N2JhYTlkMDdjMDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=	2014-03-14 23:11:07.231925+00
 \.
 
 
@@ -1129,26 +1111,10 @@ a1r6osatz6yeyj7xtxlnudj36h2al0uf	MmE4NTAyZDQxNjYyNjZhY2MzNjE1YTVmNzBlYzQzZGI2M2E
 
 COPY hallamsinfonia_concert (id, title, date_and_time, image_id, location_id, full_price_ticket_cost, booking_link, description) FROM stdin;
 2	Tchaikovsky: Symphony no.4	2013-10-05 18:30:00+00	8	1	10.00		“all life is an unbroken alternation of hard reality with swiftly passing dreams and visions of happiness”\r\n\r\nTchaikovsky expresses these words to explain the first movement of his fourth symphony, and his obsession with fate and his resignation to it is no better manifested in music than here.  “ Drift upon that sea until it engulfs and submerges you in its depths” - Take his advice and let him take you on an emotional journey through tragic lows to ecstatic highs in this wonderful symphony.
+4	Enigma Variations & Don Quixote	2014-03-08 19:30:00+00	10	2	10.00		Richard Strauss’s Don Quixote, a musical dramatisation of  Cervantes’s 17th century novel about a slightly insane noble man’s imaginary life as a Knight, is one of his finest symphonic tone poems. Through a set of fantastic variations and thematic development, the listener is taken on this journey with the Don.\r\n\r\nHallam Sinfonia are delighted to welcome back Richard Jenkinson (CBSO), along with Louise Latham (CBSO) who makes her debut with the orchestra, \r\n\r\nElgar’s Enigma Variations is most famous for ‘Nimrod’ which has now achieved anthem status, however the set of variations is one of his finest orchestral works. His friendships and relationships are the affectionate subjects of the variations, which were given the title ‘Enigma’ to disguise the identities of these people.
 3	St. Cecilia Mass	2013-11-23 19:30:00+00	9	1	12.00	http://www.hallamchoralsociety.co.uk/	Hallam Sinfonia are joining forces with the Hallam Choral Society for a joint celebration of Benjamin Britten’s 100th Birthday and St. Cecilia’s Day (patron saint of music).\r\n\r\n<i>“This simplicity, this grandeur, this serene light which rose before the musical world like a breaking dawn, troubled people enormously… at first one was dazzled, then charmed, then conquered.”</i>\r\nCamile Saint-Saëns (about Gounod’s St. Cecilia Mass).\r\n\r\n<b>The Hallam Choral Society</b> is an established choir striving towards excellence in performance. Membership is diverse and currently at over eighty singers from across the city and beyond to perform around four public concerts a year with an eclectic mix of music.\r\n\r\n* This concert is organised by the Hallam Choral Society. Tickets should be booked using through them directly, or on the door.\r\n
-4	Variations	2014-03-08 19:30:00+00	10	2	10.00		Richard Strauss’s Don Quixote, a musical dramatisation of  Cervantes’s 17th century novel about a slightly insane noble man’s imaginary life as a Knight, is one of his finest symphonic tone poems. Through a set of fantastic variations and thematic development, the listener is taken on this journey with the Don.\r\n\r\nHallam Sinfonia are delighted to welcome back Richard Jenkinson (CBSO), along with Louise Latham (CBSO) who makes her debut with the orchestra, \r\n\r\nElgar’s Enigma Variations is most famous for ‘Nimrod’ which has now achieved anthem status, however the set of variations is one of his finest orchestral works. His friendships and relationships are the affectionate subjects of the variations, which were given the title ‘Enigma’ to disguise the identities of these people.
-5	Symphonie Fantastique	2014-05-10 18:30:00+00	11	2	10.00		Autobiography and hallucination merge in Berlioz’s Symphonie Fantastique - a musical incarnation of his love and affection of art and the British actress he fell madly in love with (and who eventually married him).\r\n\r\nBerlioz said that he composed the “March to the Scaffold” in a single fevered night, but struggled with other sections for months. In the end, he produced a monument of the symphonic repertory. 
+5	Symphonie Fantastique	2014-05-10 19:30:00+00	11	2	10.00		Autobiography and hallucination merge in Berlioz’s Symphonie Fantastique - a musical incarnation of his love and affection of art and the British actress he fell madly in love with (and who eventually married him).\r\n\r\nBerlioz said that he composed the “March to the Scaffold” in a single fevered night, but struggled with other sections for months. In the end, he produced a monument of the symphonic repertory. 
 \.
-
-
---
--- Data for Name: hallamsinfonia_concert_conductors; Type: TABLE DATA; Schema: public; Owner: blake01
---
-
-COPY hallamsinfonia_concert_conductors (id, concert_id, conductor_id) FROM stdin;
-6	3	1
-\.
-
-
---
--- Name: hallamsinfonia_concert_conductors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: blake01
---
-
-SELECT pg_catalog.setval('hallamsinfonia_concert_conductors_id_seq', 8, true);
 
 
 --
@@ -1188,8 +1154,8 @@ SELECT pg_catalog.setval('hallamsinfonia_concessionaryticket_id_seq', 11, true);
 -- Data for Name: hallamsinfonia_conductor; Type: TABLE DATA; Schema: public; Owner: blake01
 --
 
-COPY hallamsinfonia_conductor (id, first_name, last_name, description, image, listed_on_conductors_page) FROM stdin;
-1	Natalia 	Luis-Bassa			t
+COPY hallamsinfonia_conductor (id, first_name, last_name, description, image) FROM stdin;
+1	Natalia 	Luis-Bassa	Natalia Luis-Bassa is currently Musical Director of the Haffner Orchestra in Lancaster and the Hallam Sinfonia in Sheffield. \r\n\r\nThe Venezuelan conductor began her musical studies at the world famous El Sistema where she studied Oboe. She read music at the University Institute of Musical Studies (IUDEM), an institution that belongs to the Venezuelan musical system, being the first person to obtain a degree in Orchestral Conducting in her native country.\r\n\r\nNatalia holds a Master's Degree from The University of Huddersfield where she is a part-time lecturer and has been appointed Elgar Ambassador.\r\n\r\nA close collaborator of the National Children's Orchestras of Great Britain, Natalia is now Music Director of the London Regional Orchestra.\r\n\r\nShe completed her Postgraduates studies at the Royal College of Music in London, holding the RCM Junior Fellowship in Opera Conducting for two years. Her relationship with the RCM continues even now, as she has been appointed Professor of Conducting and has recently starting to pursuing her Doctorate studies.\r\n\r\nTwitter - @NataliaLuisB\r\nFacebook.com/natalialuisbassa	conductors/Natalia.jpg
 \.
 
 
@@ -1245,7 +1211,7 @@ SELECT pg_catalog.setval('hallamsinfonia_location_id_seq', 2, true);
 --
 
 COPY hallamsinfonia_news (id, pub_date, title, content, image_id) FROM stdin;
-1	2013-12-01	Tim Horton to do Beethoven Cycle	Tim Horton Opti occulles doluptate resed quamus atur sam, qui dictur, nam sequias perspit iistore nem. Itae sim laccum quodi dolestia quunt etur si resseque lam ut occus sa dust pro veni re, arum sini alis pro doluptate resed quamus atur sam, qui dictur, nam sequias perspit iistore nem. Itae sim laccum quodi dolestia quunt et doluptate resed quamus atur sam, qui dictur, nam sequias perspit iistore nem. Itae sim laccum quodi dolestia quunt et	12
+1	2013-12-01	Tim Horton to do Beethoven Cycle	As part of our 2014-15 season planning, we are pleased to announce that Tim Horton, from Ensemble 360, will be performing for a new cycle of Beethoven Piano Concertos with us to complement our continuing Beethoven Symphonies cycle.\r\n\r\nTim performed with us last season for a touching performance of Rachmaninov's Piano Concerto no.2, and the orchestra are delighted to have him back for this new cycle.\r\n\r\nNews of next season, and what concerts Tim will be playing in, will be online in the near future.\r\n\r\n3 March 2014	12
 \.
 
 
@@ -1254,6 +1220,28 @@ COPY hallamsinfonia_news (id, pub_date, title, content, image_id) FROM stdin;
 --
 
 SELECT pg_catalog.setval('hallamsinfonia_news_id_seq', 5, true);
+
+
+--
+-- Data for Name: hallamsinfonia_person; Type: TABLE DATA; Schema: public; Owner: blake01
+--
+
+COPY hallamsinfonia_person (id, first_name, last_name, concert_id, role) FROM stdin;
+1	Sarah	Estill	2	Soprano
+2	Richard	Laing	2	Conductor
+3	Richard	Jenkinson	4	cello
+4	Louise	Williams	4	viola
+5	Natalia	Luis-Bassa	4	conductor
+6	Peter	Taylor	3	conductor
+7	Natalia	Luis-Bassa	5	conductor
+\.
+
+
+--
+-- Name: hallamsinfonia_person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: blake01
+--
+
+SELECT pg_catalog.setval('hallamsinfonia_person_id_seq', 7, true);
 
 
 --
@@ -1283,27 +1271,11 @@ SELECT pg_catalog.setval('hallamsinfonia_piece_id_seq', 13, true);
 
 
 --
--- Data for Name: hallamsinfonia_season; Type: TABLE DATA; Schema: public; Owner: blake01
---
-
-COPY hallamsinfonia_season (id, name, start, "end") FROM stdin;
-1	2013-14 Season	2013-09-01	2014-08-31
-\.
-
-
---
--- Name: hallamsinfonia_season_id_seq; Type: SEQUENCE SET; Schema: public; Owner: blake01
---
-
-SELECT pg_catalog.setval('hallamsinfonia_season_id_seq', 1, true);
-
-
---
 -- Data for Name: hallamsinfonia_setting; Type: TABLE DATA; Schema: public; Owner: blake01
 --
 
-COPY hallamsinfonia_setting (id, about_the_orchestra, about_image_1_id, about_image_2_id, about_image_3_id, quote_text, quote_source, live_season_id) FROM stdin;
-2	The Hallam Sinfonia is pleased to welcome back Richard Laing, on his annual visit as guest conductor, in a programme which includes works by two composers with big anniversaries this year. He is joined in these works by Sarah Estill, performing with the orchestra for the first time.\r\n\r\nThe Hallam Sinfonia was originally set up as a chamber orchestra by a group of local peripatetic music teachers. Earlier this year the 40th anniversary concert repeated some of the works performed at the very first concert in 1973: Mozart’s Marriage of Figaro overture and Beethoven’s 1st symphony, and the players included several founder members, including the current leader, John Cooper.\r\n\r\nThe orchestra has however seen many changes over those 40 years and is certainly no longer a chamber orchestra, though its forces may be scaled down on occasion. Its repertoire extends from the baroque to the 21st century, including large- scale romantic works, and from the mainstream classics to film music and children’s concerts.\r\n\r\nThis range of activity is designed to meet a variety of needs: to please audiences with old favourites, to draw in new audiences (including children and young people), to provide players with exciting challenges, to make best use of the resources the orchestra has at its disposal, and sometimes to enable collaboration with other organisations.\r\n\r\nThe orchestra is regularly asked to work with choral societies in Sheffield and Rotherham, and the forthcoming collaboration with the Hallam Choral Society involves a joint celebration of another of the year’s big musical anniversaries.The remaining concerts of the season will be conducted by the orchestra’s Musical Director Natalia Luis-Bassa and full details of all of these can be found in the 2013-4 concert guide.	13	14	15	The orchestral sound is measured, balanced and played with such enthusiasm and spirit. 	Helen McRay, email 2013	1
+COPY hallamsinfonia_setting (id, about_the_orchestra, about_image_1_id, about_image_2_id, about_image_3_id, quote_text, quote_source, facebook_link, twitter_link) FROM stdin;
+2	The Hallam Sinfonia was originally set up as a chamber orchestra by a group of local peripatetic music teachers. Although no longer a chamber orchestra, last year’s 40th anniversary concert repeated some of the works performed at the very first concert in 1973: Mozart’s Marriage of Figaro overture and Beethoven’s 1st symphony, and the players included several founder members, including the current leader, John Cooper.\r\n\r\nThe orchestra can be flexible and adaptable and has recently supported the Hallam Choral Society and Tideswell Singers in a choral concert and performed Prokofiev’s Peter and the Wolf in a village church in Rotherham District. The latter was conducted by our recently appointed Assistant Conductor, Gavin Usher, who can also often be found playing in the first violin section, while the narrator was a moonlighting cellist.\r\n\r\nAnother of Natalia’s special interests is Berlioz, and our final concert this season, in May, will include his Symphonie Fantastique, as well as a new work by a member of the orchestra. Planning for the 2014-15 season is under way and includes continuing a cycle of Beethoven symphonies, complemented by a new cycle of Beethoven piano concertos with Tim Horton of Ensemble 360.\r\n	13	14	15	The orchestral sound is measured, balanced and played with such enthusiasm and spirit. 	Helen McRay, email 2013	http://www.facebook.com/hallamsinfonia	http://www.twitter.com/hallamsinfonia
 \.
 
 
@@ -1322,6 +1294,10 @@ COPY south_migrationhistory (id, app_name, migration, applied) FROM stdin;
 1	hallamsinfonia	0001_initial	2014-02-23 22:17:04.87719+00
 2	hallamsinfonia	0002_auto__add_setting__add_location__add_concessionaryticket__add_news__ad	2014-02-23 22:17:04.935418+00
 3	hallamsinfonia	0003_auto__add_field_setting_live_season__del_field_season_live	2014-02-23 22:17:04.954484+00
+4	hallamsinfonia	0004_auto__del_season__del_field_setting_live_season	2014-02-28 12:47:46.240226+00
+5	hallamsinfonia	0005_auto__add_person__del_field_conductor_listed_on_conductors_page	2014-02-28 13:10:11.696898+00
+6	hallamsinfonia	0006_auto__add_field_person_role	2014-02-28 13:10:11.756671+00
+7	hallamsinfonia	0007_auto__add_field_setting_facebook_link__add_field_setting_twitter_link	2014-02-28 18:04:52.099031+00
 \.
 
 
@@ -1329,7 +1305,7 @@ COPY south_migrationhistory (id, app_name, migration, applied) FROM stdin;
 -- Name: south_migrationhistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: blake01
 --
 
-SELECT pg_catalog.setval('south_migrationhistory_id_seq', 3, true);
+SELECT pg_catalog.setval('south_migrationhistory_id_seq', 7, true);
 
 
 --
@@ -1461,22 +1437,6 @@ ALTER TABLE ONLY django_session
 
 
 --
--- Name: hallamsinfonia_concert_conduct_concert_id_36ed145a171772ac_uniq; Type: CONSTRAINT; Schema: public; Owner: blake01; Tablespace: 
---
-
-ALTER TABLE ONLY hallamsinfonia_concert_conductors
-    ADD CONSTRAINT hallamsinfonia_concert_conduct_concert_id_36ed145a171772ac_uniq UNIQUE (concert_id, conductor_id);
-
-
---
--- Name: hallamsinfonia_concert_conductors_pkey; Type: CONSTRAINT; Schema: public; Owner: blake01; Tablespace: 
---
-
-ALTER TABLE ONLY hallamsinfonia_concert_conductors
-    ADD CONSTRAINT hallamsinfonia_concert_conductors_pkey PRIMARY KEY (id);
-
-
---
 -- Name: hallamsinfonia_concert_pkey; Type: CONSTRAINT; Schema: public; Owner: blake01; Tablespace: 
 --
 
@@ -1525,19 +1485,19 @@ ALTER TABLE ONLY hallamsinfonia_news
 
 
 --
+-- Name: hallamsinfonia_person_pkey; Type: CONSTRAINT; Schema: public; Owner: blake01; Tablespace: 
+--
+
+ALTER TABLE ONLY hallamsinfonia_person
+    ADD CONSTRAINT hallamsinfonia_person_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: hallamsinfonia_piece_pkey; Type: CONSTRAINT; Schema: public; Owner: blake01; Tablespace: 
 --
 
 ALTER TABLE ONLY hallamsinfonia_piece
     ADD CONSTRAINT hallamsinfonia_piece_pkey PRIMARY KEY (id);
-
-
---
--- Name: hallamsinfonia_season_pkey; Type: CONSTRAINT; Schema: public; Owner: blake01; Tablespace: 
---
-
-ALTER TABLE ONLY hallamsinfonia_season
-    ADD CONSTRAINT hallamsinfonia_season_pkey PRIMARY KEY (id);
 
 
 --
@@ -1648,20 +1608,6 @@ CREATE INDEX django_session_session_key_like ON django_session USING btree (sess
 
 
 --
--- Name: hallamsinfonia_concert_conductors_concert_id; Type: INDEX; Schema: public; Owner: blake01; Tablespace: 
---
-
-CREATE INDEX hallamsinfonia_concert_conductors_concert_id ON hallamsinfonia_concert_conductors USING btree (concert_id);
-
-
---
--- Name: hallamsinfonia_concert_conductors_conductor_id; Type: INDEX; Schema: public; Owner: blake01; Tablespace: 
---
-
-CREATE INDEX hallamsinfonia_concert_conductors_conductor_id ON hallamsinfonia_concert_conductors USING btree (conductor_id);
-
-
---
 -- Name: hallamsinfonia_concert_image_id; Type: INDEX; Schema: public; Owner: blake01; Tablespace: 
 --
 
@@ -1690,6 +1636,13 @@ CREATE INDEX hallamsinfonia_news_image_id ON hallamsinfonia_news USING btree (im
 
 
 --
+-- Name: hallamsinfonia_person_concert_id; Type: INDEX; Schema: public; Owner: blake01; Tablespace: 
+--
+
+CREATE INDEX hallamsinfonia_person_concert_id ON hallamsinfonia_person USING btree (concert_id);
+
+
+--
 -- Name: hallamsinfonia_piece_concert_id; Type: INDEX; Schema: public; Owner: blake01; Tablespace: 
 --
 
@@ -1715,13 +1668,6 @@ CREATE INDEX hallamsinfonia_setting_about_image_2_id ON hallamsinfonia_setting U
 --
 
 CREATE INDEX hallamsinfonia_setting_about_image_3_id ON hallamsinfonia_setting USING btree (about_image_3_id);
-
-
---
--- Name: hallamsinfonia_setting_live_season_id; Type: INDEX; Schema: public; Owner: blake01; Tablespace: 
---
-
-CREATE INDEX hallamsinfonia_setting_live_season_id ON hallamsinfonia_setting USING btree (live_season_id);
 
 
 --
@@ -1781,11 +1727,11 @@ ALTER TABLE ONLY hallamsinfonia_piece
 
 
 --
--- Name: concert_id_refs_id_f665bff8; Type: FK CONSTRAINT; Schema: public; Owner: blake01
+-- Name: concert_id_refs_id_638ae92d; Type: FK CONSTRAINT; Schema: public; Owner: blake01
 --
 
-ALTER TABLE ONLY hallamsinfonia_concert_conductors
-    ADD CONSTRAINT concert_id_refs_id_f665bff8 FOREIGN KEY (concert_id) REFERENCES hallamsinfonia_concert(id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE ONLY hallamsinfonia_person
+    ADD CONSTRAINT concert_id_refs_id_638ae92d FOREIGN KEY (concert_id) REFERENCES hallamsinfonia_concert(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -1794,14 +1740,6 @@ ALTER TABLE ONLY hallamsinfonia_concert_conductors
 
 ALTER TABLE ONLY hallamsinfonia_concessionaryticket
     ADD CONSTRAINT concert_id_refs_id_fb428b03 FOREIGN KEY (concert_id) REFERENCES hallamsinfonia_concert(id) DEFERRABLE INITIALLY DEFERRED;
-
-
---
--- Name: conductor_id_refs_id_feceba1f; Type: FK CONSTRAINT; Schema: public; Owner: blake01
---
-
-ALTER TABLE ONLY hallamsinfonia_concert_conductors
-    ADD CONSTRAINT conductor_id_refs_id_feceba1f FOREIGN KEY (conductor_id) REFERENCES hallamsinfonia_conductor(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -1850,14 +1788,6 @@ ALTER TABLE ONLY hallamsinfonia_news
 
 ALTER TABLE ONLY hallamsinfonia_concert
     ADD CONSTRAINT image_id_refs_id_09d60e7a FOREIGN KEY (image_id) REFERENCES hallamsinfonia_image(id) DEFERRABLE INITIALLY DEFERRED;
-
-
---
--- Name: live_season_id_refs_id_4310349f; Type: FK CONSTRAINT; Schema: public; Owner: blake01
---
-
-ALTER TABLE ONLY hallamsinfonia_setting
-    ADD CONSTRAINT live_season_id_refs_id_4310349f FOREIGN KEY (live_season_id) REFERENCES hallamsinfonia_season(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

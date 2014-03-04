@@ -22,6 +22,7 @@ class Person(generic_models.Person):
     
     class Meta:
         verbose_name_plural = 'People'
+        ordering = ['pk']
     
 
 class Conductor(generic_models.Person):
@@ -107,6 +108,9 @@ class Piece(models.Model):
     
     def __unicode__(self):
         return self.title
+        
+    class Meta:
+        ordering = ['pk']
     
     
 class ConcessionaryTicket(models.Model):
@@ -116,4 +120,7 @@ class ConcessionaryTicket(models.Model):
     
     def __unicode__(self):
         return self.name
+        
+    class Meta:
+        ordering = ['pk']
 
