@@ -376,6 +376,16 @@ b {
 	}
 }
 
+#dagger-area {
+	display: none;
+	position: absolute;
+	bottom:0;
+	left: 0;
+	right: 0;
+	height: 360px;
+	cursor: pointer;
+}
+
 @include two_col_liquid_left_fixed_right('.content-image-wrapper', '.content-text-wrapper', '.content-text', 270px, 20px);
 .content-text img {
 	width: 100%;
