@@ -48,6 +48,7 @@ class Setting(generic_models.Singleton):
     quote_source = models.CharField(max_length=128)
     facebook_link = models.URLField()
     twitter_link = models.URLField()
+    season_name = models.CharField(max_length=128)
     
     
 class Image(generic_models.Image):
