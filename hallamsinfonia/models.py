@@ -1,7 +1,7 @@
 from django.db import models
-from generic import models as generic_models
-from generic import fields as generic_fields
-from generic.image_functions import resize_image_to_fixed_width
+from j29.generic import models as generic_models
+from j29.generic import fields as generic_fields
+from j29.generic.image_functions import resize_image_to_fixed_width
 import datetime
 
 

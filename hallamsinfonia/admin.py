@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from generic.admin import SingletonAdmin
+from j29.generic.admin import SingletonAdmin
 from hallamsinfonia.models import (News, Conductor, Setting, Image, Location,
     Concert, Piece, ConcessionaryTicket, Person)
 
