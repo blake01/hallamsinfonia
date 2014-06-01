@@ -1,18 +1,19 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from j29.generic.admin import SingletonAdmin
-from hallamsinfonia.models import (News, Conductor, Setting, Image, Location,
+from hallamsinfonia.models import (
+    News, Conductor, Setting, Image, Location,
     Concert, Piece, ConcessionaryTicket, Person)
 
 
 class TicketInline(admin.TabularInline):
     model = ConcessionaryTicket
-    
+
 
 class PeopleInline(admin.TabularInline):
     model = Person
-  
-    
+
+
 class PieceInline(admin.TabularInline):
     model = Piece
 

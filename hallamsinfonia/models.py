@@ -2,37 +2,37 @@ from django.db import models
 from j29.generic import models as generic_models
 from j29.generic import fields as generic_fields
 from j29.generic.image_functions import resize_image_to_fixed_width
-import datetime
 
 
 class News(generic_models.News):
+    """A news article."""
     image = models.ForeignKey('Image')
-    
-    
+
+
 class Person(generic_models.Person):
-    """
-    A person who appears in a concert.
+    """A person who appears in a concert.
+
     For simplicity, the 'person' model is not linked to the 'conductor' model,
-    which governs the conductors that appear on the conductors page. Moreover, 
+    which governs the conductors that appear on the conductors page. Moreover,
     the relationship is treated as many-to-one, rather than the more 'correct'
     many-to-many.
     """
     concert = models.ForeignKey('Concert')
-    role = models.CharField(max_length=128, help_text='e.g. "conductor" or "trumpet"')
-    
+    role = models.CharField(
+        max_length=128, help_text='e.g. "conductor" or "trumpet"')
+
     class Meta:
         verbose_name_plural = 'People'
         ordering = ['pk']
-    
+
 
 class Conductor(generic_models.Person):
+    """A conductor of the orchestra."""
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='conductors', blank=True)
-    
+
     def save(self, *args, **kwargs):
-        """
-        Resize image as appropriate.
-        """
+        """Resize image as appropriate."""
         if not self.id and not self.image:
             return
         super(Conductor, self).save()
@@ -49,25 +49,23 @@ class Setting(generic_models.Singleton):
     facebook_link = models.URLField()
     twitter_link = models.URLField()
     season_name = models.CharField(max_length=128)
-    
-    
+
+
 class Image(generic_models.Image):
     image = models.ImageField(upload_to="image_library")
-    
+
     def save(self, *args, **kwargs):
-        """
-        Resize image as appropriate.
-        """
+        """Resize image as appropriate."""
         if not self.id and not self.image:
             return
         super(Image, self).save()
         resize_image_to_fixed_width(self.image, width=430)
-    
-    
+
+
 class Location(generic_models.UKAddress):
     pass
-        
-            
+
+
 class Concert(models.Model):
     title = models.CharField(max_length=128)
     date_and_time = models.DateTimeField()
@@ -79,17 +77,17 @@ class Concert(models.Model):
 
     @property
     def date(self):
-        """ Return a string representation of the date, e.g. Sat 07 December 13 """
+        """String representation of the date, e.g. Sat 07 December 13"""
         return self.date_and_time.strftime('%A %d %B %y')
-    
+
     @property
     def time(self):
-        """ Return a string representation of the time, e.g. 9:30 am """
+        """String representation of the time, e.g. 9:30 am"""
         return self.date_and_time.strftime('%I:%M %p').lstrip('0').lower()
-        
+
     @property
     def tickets_string(self):
-        """ Return a string representation of the various tickets available """
+        """String representation of the various tickets available"""
         s = '&pound;%s'%(self.full_price_ticket_cost)
         for ticket in self.concessionaryticket_set.all():
             s += ', &pound;%s %s'%(ticket.ticket_cost, ticket.name)
@@ -97,31 +95,30 @@ class Concert(models.Model):
 
     def __unicode__(self):
         return '%s on %s'%(self.title, self.date)
-        
+
     class Meta:
-		ordering = ['date_and_time']
-    
-   
+        ordering = ['date_and_time']
+
+
 class Piece(models.Model):
     title = models.CharField(max_length=128)
     composer = models.CharField(max_length=128)
     concert = models.ForeignKey('Concert')
-    
+
     def __unicode__(self):
         return self.title
-        
-    class Meta:
-        ordering = ['pk']
-    
-    
-class ConcessionaryTicket(models.Model):
-    name = models.CharField(max_length=128)
-    ticket_cost = generic_fields.DecimalCurrencyField() 
-    concert = models.ForeignKey('Concert')
-    
-    def __unicode__(self):
-        return self.name
-        
+
     class Meta:
         ordering = ['pk']
 
+
+class ConcessionaryTicket(models.Model):
+    name = models.CharField(max_length=128)
+    ticket_cost = generic_fields.DecimalCurrencyField()
+    concert = models.ForeignKey('Concert')
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['pk']
