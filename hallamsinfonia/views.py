@@ -39,17 +39,17 @@ def upcoming(request):
     }
     context_dict.update(common)
     return render(request, 'upcoming.html', context_dict)
-    
+
 
 class NewsListView(NewsEndlessListView):
-	""" Overriden from the News app to give HS-specific requirements."""
-	def get_context_data(self, **kwargs):
-		# Call the base implementation first to get a context
-		context = super(NewsListView, self).get_context_data(**kwargs)
-		# Add extra context
-		context.update(common_context())
-		context['color'] = 'green'
-		return context
+    """ Overriden from the News app to give HS-specific requirements."""
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(NewsListView, self).get_context_data(**kwargs)
+        # Add extra context
+        context.update(common_context())
+        context['color'] = 'green'
+        return context
 
 
 def about(request):
