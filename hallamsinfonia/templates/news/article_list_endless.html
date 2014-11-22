@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+            
+{% block main_content %}
+
+ <div class="content-box">            
+    <h1>Hallam Sinfonia News</h1>
+    <p>Latest news from the orchestra</p>
+</div>
+
+<div id="stories">
+    {% include page_template %}
+</div>
+
+{% endblock main_content %}
+
+{% block additional_js %}
+    <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+    <script>$.endlessPaginate({paginateOnScroll: true});</script>
+{% endblock %}

@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: white;
 }
 
-h1 {
+h1, .endless_container {
 	font-family: 'Cabin', sans-serif;
 	border-bottom: 2px solid $accent;
 	margin: 5px 0px 10px 0;
@@ -350,13 +350,13 @@ b {
   zoom: 1;
 }
 
-.content-box, #upcoming-wrapper {
+.content-box, #upcoming-wrapper, .endless_container {
 	position: relative;
 	max-width: 1200px;
 	margin: 20px 0 20px 0;
 }
 
-.content-box, .col {
+.content-box, .col, .endless_container {
 	@include transparent(#000, 0.5);
 	padding: 10px 25px 10px 25px;
 }

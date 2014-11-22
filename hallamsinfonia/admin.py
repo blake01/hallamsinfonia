@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from j29.generic.admin import SingletonAdmin
 from hallamsinfonia.models import (
-    News, Conductor, Setting, Image, Location,
+    Conductor, Setting, Image, Location,
     Concert, Piece, ConcessionaryTicket, Person)
 
 
@@ -23,7 +23,6 @@ class ConcertAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(Group)
-admin.site.register(News)
 admin.site.register(Conductor)
 admin.site.register(Image)
 admin.site.register(Location)

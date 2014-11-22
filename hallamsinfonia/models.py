@@ -2,9 +2,10 @@ from django.db import models
 from j29.generic import models as generic_models
 from j29.generic import fields as generic_fields
 from j29.generic.image_functions import resize_image_to_fixed_width
+from news.models import ArticleBase
 
 
-class News(generic_models.News):
+class Article(ArticleBase):
     """A news article."""
     image = models.ForeignKey('Image')
 

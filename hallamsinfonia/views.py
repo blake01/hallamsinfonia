@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.utils import timezone
 import random
-from hallamsinfonia.models import News, Concert, Conductor, Setting
+from hallamsinfonia.models import Article, Concert, Conductor, Setting
+from news.views import NewsEndlessListView
 
 
 def common_context():
@@ -22,7 +23,7 @@ def home(request):
     now = timezone.now()
     context_dict = {
         'next_concert': Concert.objects.filter(date_and_time__gt=now).first(),
-        'latest_news': News.objects.filter(pub_date__lte=now.date()).first(),
+        'latest_news': Article.objects.latest(),
         'color': 'yellow',
     }
     context_dict.update(common)
@@ -38,27 +39,18 @@ def upcoming(request):
     }
     context_dict.update(common)
     return render(request, 'upcoming.html', context_dict)
+    
 
-def news(request):
-    now = timezone.now()
-    stories = News.objects.filter(pub_date__lte=now.date())
-    number_of_stories = stories.count()
-    if number_of_stories > 3:
-        news = stories[:3]
-        more = True
-    elif number_of_stories > 0:
-        news = stories
-        more = False
-    else:
-        news = None
-        more = False
-    context_dict = {
-        'news': news,
-        'more': more,
-        'color': 'green',
-    }
-    context_dict.update(common_context())
-    return render(request, 'news.html', context_dict)
+class NewsListView(NewsEndlessListView):
+	""" Overriden from the News app to give HS-specific requirements."""
+	def get_context_data(self, **kwargs):
+		# Call the base implementation first to get a context
+		context = super(NewsListView, self).get_context_data(**kwargs)
+		# Add extra context
+		context.update(common_context())
+		context['color'] = 'green'
+		return context
+
 
 def about(request):
     context_dict = {'color': 'blue',}
@@ -76,23 +68,6 @@ def conductors(request):
 """
 The Ajax views
 """
-
-def ajax_news(request, pk):
-    """
-    Return the next news story.
-    """
-    last_loaded_story = News.objects.get(pk=pk)
-    next_story = last_loaded_story.get_previous_by_pub_date()
-    try:
-        _ = next_story.get_previous_by_pub_date()
-        more = True
-    except News.DoesNotExist:
-        more = False
-    context_dict = {
-        'story': next_story,
-        'more': more,
-    }
-    return render(request, 'news_fragment.html', context_dict)
 
 def ajax_conductor(request, pk):
     """

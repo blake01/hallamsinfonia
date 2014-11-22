@@ -1,0 +1,8 @@
+{% load endless %}
+
+{% paginate 3 articles %}
+{% for story in articles %}
+    {% include 'news_fragment.html' %}
+{% endfor %}
+
+{% show_more "More" %}
