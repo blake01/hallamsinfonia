@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-
+            
 {% block main_content %}
 
 <div id="quote">
@@ -9,7 +9,7 @@
 </div>
 
 {% if next_concert %}
-<div class="content-box">
+<div class="content-box">            
     <div class="content-text-wrapper">
         <div class="content-text">
             <h1>Upcoming</h1>
@@ -44,7 +44,7 @@
 {% endif %}
 
 {% if latest_news %}
-<div class="content-box">
+<div class="content-box">            
     <div class="content-text-wrapper">
         <div class="content-text">
             <h1>{{ latest_news.title }}</h1>
