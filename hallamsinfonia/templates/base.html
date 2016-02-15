@@ -12,9 +12,9 @@
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Custom styles -->
-    <link href="{{ STATIC_URL }}css/{{ color }}.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/{{ color }}.css?v=150216" rel="stylesheet">
     <!--[if (gte IE 9)|!(IE)]><!-->
-    <link rel="stylesheet" media="screen and (min-width: 950px)" href="{% static 'css/hires_styles.css' %}">
+    <link rel="stylesheet" media="screen and (min-width: 950px)" href="{% static 'css/hires_styles.css?v=150216' %}">
     <!--<![endif]-->
     <!-- HTML5 shim, Respond.js, ie only stylesheet. IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -73,13 +73,13 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/hashchange.min.js' %}"></script>
-    <script src="{% static 'js/backwall.standalone.min.js' %}"></script>
+    <script src="{% static 'js/backwall.min.js' %}"></script>
     <script>
     // Randomised Background
     new Backwall({
       imgMidRes: "/static/img/backgrounds/{{ background_number }}.jpg",
       containerId: "background_picture",
-      fadeTimeSecs: 0.2
+      fadeTimeSecs: 0.3
     });
     // Easter egg - fade out content
     $("#dagger-area").click(function() {
