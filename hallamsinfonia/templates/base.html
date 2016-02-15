@@ -13,14 +13,8 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Custom styles -->
     <link href="{{ STATIC_URL }}css/{{ color }}.css" rel="stylesheet">
-    <style>
-        /* Randomised background */
-        #meta_container {
-            background-image:url('/static/img/backgrounds/{{ background_number }}.jpg');
-        }
-    </style>
-    <!--[if (gte IE 9)|!(IE)]><!-->  
-    <link rel="stylesheet" media="screen and (min-width: 900px)" href="{% static 'css/hires_styles.css' %}">
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <link rel="stylesheet" media="screen and (min-width: 950px)" href="{% static 'css/hires_styles.css' %}">
     <!--<![endif]-->
     <!-- HTML5 shim, Respond.js, ie only stylesheet. IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -31,6 +25,7 @@
   </head>
   <body>
     <div id="meta_container">
+      <div id="background_picture"></div>
       <div class="navbar navbar-inverse" role="navigation" id="navigation">
         <div class="container" id="sidebar">
           <div class="navbar-header">
@@ -42,7 +37,7 @@
             </button>
             <a class="navbar-brand" href="/">
             <img src="{% static 'img/logo_hs.png' %}" alt="Hallam Sinfonia logo" />
-            <img src="{% static 'img/logo_text.png' %}" alt="Hallam Sinfonia title" />  
+            <img src="{% static 'img/logo_text.png' %}" alt="Hallam Sinfonia title" />
             </a>
           </div>
           <div class="collapse navbar-collapse">
@@ -78,13 +73,22 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/hashchange.min.js' %}"></script>
+    <script src="{% static 'js/backwall.standalone.min.js' %}"></script>
     <script>
+    // Randomised Background
+    new Backwall({
+      imgMidRes: "/static/img/backgrounds/{{ background_number }}.jpg",
+      containerId: "background_picture",
+      fadeTimeSecs: 0.2
+    });
+    // Easter egg - fade out content
     $("#dagger-area").click(function() {
         $("#main_container").fadeToggle()
     })
     $(".meso_container").click(function() {
         $("#main_container").fadeIn()
     })
+    // Sticky footer hacks
     function check_sticky_footer() {
         available_height = $(window).height() - $("#meta_container").height();
         $("#main_container").css("min-height", $("#main_container").height() + available_height);
