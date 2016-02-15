@@ -21,16 +21,18 @@ class Person(generic_models.Person):
     concert = models.ForeignKey('Concert')
     role = models.CharField(
         max_length=128, help_text='e.g. "conductor" or "trumpet"')
+    weight = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name_plural = 'People'
-        ordering = ['pk']
+        ordering = ['weight']
 
 
 class Conductor(generic_models.Person):
     """A conductor of the orchestra."""
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='conductors', blank=True)
+    weight = models.PositiveIntegerField(default=0)
 
     def save(self, *args, **kwargs):
         """Resize image as appropriate."""
@@ -38,6 +40,9 @@ class Conductor(generic_models.Person):
             return
         super(Conductor, self).save()
         resize_image_to_fixed_width(self.image, width=180)
+
+    class Meta:
+        ordering = ['weight']
 
 
 class Setting(generic_models.Singleton):
@@ -89,13 +94,13 @@ class Concert(models.Model):
     @property
     def tickets_string(self):
         """String representation of the various tickets available"""
-        s = '&pound;%s'%(self.full_price_ticket_cost)
+        s = '&pound;{0}'.format(self.full_price_ticket_cost)
         for ticket in self.concessionaryticket_set.all():
-            s += ', &pound;%s %s'%(ticket.ticket_cost, ticket.name)
+            s += ', &pound;{0} {1}'.format(ticket.ticket_cost, ticket.name)
         return s
 
     def __unicode__(self):
-        return '%s on %s'%(self.title, self.date)
+        return '{0} on {1}'.format(self.title, self.date)
 
     class Meta:
         ordering = ['date_and_time']
@@ -105,21 +110,23 @@ class Piece(models.Model):
     title = models.CharField(max_length=128)
     composer = models.CharField(max_length=128)
     concert = models.ForeignKey('Concert')
+    weight = models.PositiveIntegerField(default=0)
 
     def __unicode__(self):
         return self.title
 
     class Meta:
-        ordering = ['pk']
+        ordering = ['weight']
 
 
 class ConcessionaryTicket(models.Model):
     name = models.CharField(max_length=128)
     ticket_cost = generic_fields.DecimalCurrencyField()
     concert = models.ForeignKey('Concert')
+    weight = models.PositiveIntegerField(default=0)
 
     def __unicode__(self):
         return self.name
 
     class Meta:
-        ordering = ['pk']
+        ordering = ['weight']
