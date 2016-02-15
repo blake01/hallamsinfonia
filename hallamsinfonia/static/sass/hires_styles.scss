@@ -103,4 +103,8 @@ h1, .endless_container a {
     .content-text {
         margin-right: 340px;
     }
+    #background_picture {
+      // No longer troubled by the IOS issue
+      position: absolute;
+    }
 }
