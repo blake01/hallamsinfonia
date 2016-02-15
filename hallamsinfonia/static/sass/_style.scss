@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
- 
+
 @import "compass";
 
 @mixin two_col_liquid_left_fixed_right($fixed_div_name, $liquid_div_wrapper_name, $liquid_div_name, $fixed_width, $padding_offset) {
@@ -78,12 +78,16 @@
 @include font-face("jura", font-files("jura.ttf", "jura.woff", "jura.svg"), "jura.eot");
 @include font-face("sosa", font-files("sosa.ttf", "sosa.woff", "sosa.svg"), "sosa.eot");
 
+body {
+  background-color: #333;
+}
+
 body, html {
-	background-color: #ddd;
 	font-family: 'Cabin', sans-serif;
 	color: #e6e6e6;
 	font-size: 15px;
 	min-width: 280px;
+  min-height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -104,11 +108,16 @@ h4 {
 	font-size: 20px;
 }
 
+p {
+  line-height: 1.6em;
+}
 .smaller-p {
 	font-size: 12px;
+  line-height: 1.6em;
 }
 .larger-p {
 	font-size: 16px;
+  line-height: 1.6em;
 }
 
 a {
@@ -163,6 +172,7 @@ b {
 	border-spacing: 5px;
 	margin-bottom: 10px;
 	td {
+    padding: 5px 0;
 		vertical-align: middle;
 	}
 	.thin-cell {
@@ -183,7 +193,6 @@ b {
 
 #meta_container {
 	margin: 0 auto;
-	background-color: white;
 	position: relative;
 	width: 100%;
 	max-width: 2000px;
@@ -191,10 +200,19 @@ b {
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	@include background-size(cover);
-	-ms-behavior: url(/static/css/backgroundsize.min.htc);
-	background-attachment: fixed;
-	background-repeat: no-repeat;
+}
+
+#background_picture {
+  @include background-size(cover);
+  -ms-behavior: url(/static/css/backgroundsize.min.htc);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 #main_container {
@@ -357,7 +375,7 @@ b {
 }
 
 .content-box, .col, .endless_container {
-	@include transparent(#000, 0.5);
+	@include transparent(#000, 0.6);
 	padding: 10px 25px 10px 25px;
 }
 .col {
@@ -414,6 +432,11 @@ b {
 
 .concert a {
 	text-decoration: none;
+  color: inherit;
+  &:active {
+    // Override Bootstrap blue
+    color: inherit;
+  }
 }
 
 .hand {
@@ -447,7 +470,7 @@ b {
 			h1 {
 				margin-left: 0;
 				padding-left: 0;
-			}	
+			}
 		}
 	}
 	.content-text {
@@ -470,7 +493,6 @@ b {
 	}
 	#conductors-list {
 		a {
-			display: inline-block;
 			margin-right: 60px;
 		}
 	}
@@ -484,7 +506,7 @@ b {
 			height: 80px;
 			display: table;
 		}
-	}	
+	}
 	.navbar-nav li a {
 		border: 0;
 		padding: 30px 20px 30px 20px;
@@ -493,4 +515,3 @@ b {
 		vertical-align: middle;
 	}
 }
-	
