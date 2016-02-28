@@ -1,6 +1,6 @@
-{% load endless %}
+{% load el_pagination_tags %}
 
-{% paginate 3 articles %}
+{% paginate 2 articles %}
 {% for story in articles %}
     {% include 'news_fragment.html' %}
 {% endfor %}

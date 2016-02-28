@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from j29.generic.admin import SingletonAdmin
-from adminsortable.admin import SortableAdminMixin, SortableInlineAdminMixin
+from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from hallamsinfonia.models import (
     Conductor, Setting, Image, Location,
     Concert, Piece, ConcessionaryTicket, Person)
