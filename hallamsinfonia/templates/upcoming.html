@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-            
+
 {% block main_content %}
 
 <div id="upcoming-wrapper">
 
     <div class="col">
         <h1>Upcoming Concerts</h1>
-        
+
         <table class="concerts-table">
             {% for concert in concerts %}
             <tr class="concert">
@@ -23,9 +23,9 @@
             </tr>
             {% endfor %}
         </table>
-        
+
         <h1>Past Concerts</h1>
-        
+
         <table class="concerts-table">
             {% for concert in past_concerts %}
             <tr class="concert">
@@ -45,7 +45,7 @@
     </div>
 
     <div class="col" id="upcoming-detail" style="display:none"></div>
-    
+
 </div>
 
 {% endblock main_content %}
@@ -72,6 +72,6 @@ $(function(){
   // Trigger the event (useful on page load).
   $(window).hashchange();
 });
-        
+
 </script>
 {% endblock %}

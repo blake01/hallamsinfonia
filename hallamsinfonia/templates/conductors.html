@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-            
+
 {% block main_content %}
-<div class="content-box" id="conductors-list">      
-    <h1>Conductors</h1>      
+<div class="content-box" id="conductors-list">
+    <h1>Conductors</h1>
     <p>Click on one of our regular conductors below to read more about them.</p>
     {% for conductor in conductors %}
       <a href="#{{ conductor.pk }}">{{ conductor }}</a>
     {% endfor %}
 </div>
-            
+
 <div class="content-box" id="conductor">
     <div id="conductor-content"></div>            
     <div class="clearfix"></div>
@@ -35,6 +35,6 @@ $(function(){
   // Trigger the event (useful on page load).
   $(window).hashchange();
 });
-        
+
 </script>
 {% endblock %}

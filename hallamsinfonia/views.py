@@ -18,6 +18,7 @@ def common_context():
 The non-Ajax views
 """
 
+
 def home(request):
     common = common_context()
     now = timezone.now()
@@ -28,6 +29,7 @@ def home(request):
     }
     context_dict.update(common)
     return render(request, 'home.html', context_dict)
+
 
 def upcoming(request):
     common = common_context()
@@ -53,9 +55,10 @@ class NewsListView(NewsEndlessListView):
 
 
 def about(request):
-    context_dict = {'color': 'blue',}
+    context_dict = {'color': 'blue', }
     context_dict.update(common_context())
     return render(request, 'about.html', context_dict)
+
 
 def conductors(request):
     context_dict = {
@@ -69,12 +72,14 @@ def conductors(request):
 The Ajax views
 """
 
+
 def ajax_conductor(request, pk):
     """
     Return a conductor with primary key pk
     """
     context_dict = {'conductor': Conductor.objects.get(pk=pk)}
     return render(request, 'conductor_fragment.html', context_dict)
+
 
 def ajax_concert(request, pk):
     """

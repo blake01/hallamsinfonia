@@ -54,7 +54,6 @@ class Setting(generic_models.Singleton):
     quote_source = models.CharField(max_length=128)
     facebook_link = models.URLField()
     twitter_link = models.URLField()
-    season_name = models.CharField(max_length=128)
 
 
 class Image(generic_models.Image):
@@ -72,9 +71,17 @@ class Location(generic_models.UKAddress):
     pass
 
 
+class Season(generic_models.SlugFromTitle):
+    # Inherit a title, unicode method and slug field.
+    start_date = models.DateField(
+        help_text="Not displayed - used for sorting only"
+    )
+
+
 class Concert(models.Model):
     title = models.CharField(max_length=128)
     date_and_time = models.DateTimeField()
+    season = models.ForeignKey('Season')
     image = models.ForeignKey('Image')
     location = models.ForeignKey('Location')
     full_price_ticket_cost = generic_fields.DecimalCurrencyField()

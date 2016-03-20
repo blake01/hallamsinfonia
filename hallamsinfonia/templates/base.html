@@ -19,7 +19,7 @@
             background-image:url('/static/img/backgrounds/{{ background_number }}.jpg');
         }
     </style>
-    <!--[if (gte IE 9)|!(IE)]><!-->  
+    <!--[if (gte IE 9)|!(IE)]><!-->
     <link rel="stylesheet" media="screen and (min-width: 900px)" href="{% static 'css/hires_styles.css' %}">
     <!--<![endif]-->
     <!-- HTML5 shim, Respond.js, ie only stylesheet. IE8 support of HTML5 elements and media queries -->
@@ -42,12 +42,12 @@
             </button>
             <a class="navbar-brand" href="/">
             <img src="{% static 'img/logo_hs.png' %}" alt="Hallam Sinfonia logo" />
-            <img src="{% static 'img/logo_text.png' %}" alt="Hallam Sinfonia title" />  
+            <img src="{% static 'img/logo_text.png' %}" alt="Hallam Sinfonia title" />
             </a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="{% url 'hallamsinfonia.views.upcoming' %}">{{ settings.season_name }} Season</a></li>
+              <li><a href="{% url 'hallamsinfonia.views.upcoming' %}">Concerts</a></li>
               <li><a href="{% url 'news' %}">News</a></li>
               <li><a href="{% url 'hallamsinfonia.views.about' %}">About the Orchestra</a></li>
               <li><a href="{% url 'hallamsinfonia.views.conductors' %}">Conductors</a></li>

@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from j29.generic.admin import SingletonAdmin
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from hallamsinfonia.models import (
-    Conductor, Setting, Image, Location,
+    Conductor, Setting, Image, Location, Season,
     Concert, Piece, ConcessionaryTicket, Person)
 
 
@@ -31,5 +31,6 @@ admin.site.unregister(Group)
 admin.site.register(Conductor, ConductorAdmin)
 admin.site.register(Image)
 admin.site.register(Location)
+admin.site.register(Season)
 admin.site.register(Concert, ConcertAdmin)
 admin.site.register(Setting, SingletonAdmin)
