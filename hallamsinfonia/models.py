@@ -106,7 +106,10 @@ class Concert(models.Model):
         """String representation of the various tickets available"""
         s = '&pound;{0}'.format(self.full_price_ticket_cost)
         for ticket in self.concessionaryticket_set.all():
-            s += ', &pound;{0} {1}'.format(ticket.ticket_cost, ticket.name)
+            if ticket.ticket_cost == 0:
+                s += ', Free {0}'.format(ticket.name)
+            else:
+                s += ', &pound;{0} {1}'.format(ticket.ticket_cost, ticket.name)
         return s
 
     def __unicode__(self):
