@@ -39,7 +39,7 @@ class Conductor(generic_models.Person):
         if not self.id and not self.image:
             return
         super(Conductor, self).save()
-        resize_image_to_fixed_width(self.image, width=180)
+        resize_image_to_fixed_width(self.image, width=200)
 
     class Meta:
         ordering = ['weight']
@@ -76,6 +76,9 @@ class Season(generic_models.SlugFromTitle):
     start_date = models.DateField(
         help_text="Not displayed - used for sorting only"
     )
+
+    class Meta:
+        ordering = ['start_date']
 
 
 class Concert(models.Model):

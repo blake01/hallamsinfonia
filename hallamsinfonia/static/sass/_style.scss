@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
- 
+
 @import "compass";
 
 @mixin two_col_liquid_left_fixed_right($fixed_div_name, $liquid_div_wrapper_name, $liquid_div_name, $fixed_width, $padding_offset) {
@@ -113,7 +113,7 @@ h4 {
 
 a {
 	color: white;
-	&:hover {
+	&:hover, &:active, &:focus {
 		color: white;
 	}
 }
@@ -132,12 +132,23 @@ b {
 	color: white;
 }
 
+.arrow {
+  font-size: 1em;
+  float: right;
+  margin-right: 1em;
+}
+
 .clearfix {
 	clear: both;
 }
 
 .collapse {
 	padding: 0;
+}
+
+#concerts-listview h3 {
+  cursor: pointer;
+  margin-bottom: 0.5em;
 }
 
 .concerts-table {
@@ -155,7 +166,12 @@ b {
 	}
 	td {
 		vertical-align:top;
+    cursor: pointer;
 	}
+}
+
+.hidden-concerts-table {
+  display: none;
 }
 
 .icons-and-descriptions {
@@ -425,7 +441,7 @@ b {
 	img {
 		margin: 0 auto;
 		padding: 0 0 10px 20px;
-		width: 180px;
+		width: 200px;
 		float: right;
 	}
 }
@@ -439,15 +455,15 @@ b {
 		.col {
 			width: 49%;
 			float: left;
-			margin-bottom: -979px;
-			padding-bottom: 999px;
+			margin-bottom: -1979px;
+			padding-bottom: 1999px;
 		}
 		.col:nth-child(2) {
 			float: right;
 			h1 {
 				margin-left: 0;
 				padding-left: 0;
-			}	
+			}
 		}
 	}
 	.content-text {
@@ -470,7 +486,7 @@ b {
 	}
 	#conductors-list {
 		a {
-			display: inline-block;
+			display: block;
 			margin-right: 60px;
 		}
 	}
@@ -484,7 +500,7 @@ b {
 			height: 80px;
 			display: table;
 		}
-	}	
+	}
 	.navbar-nav li a {
 		border: 0;
 		padding: 30px 20px 30px 20px;
@@ -493,4 +509,3 @@ b {
 		vertical-align: middle;
 	}
 }
-	

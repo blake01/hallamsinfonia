@@ -1,0 +1,11 @@
+<tr class="concert">
+    <td class="fixed-width">
+        <a href="#{{ concert.pk }}">
+            <img src="{{ concert.image.image.url }}" alt="{{ concert.image.title }}" />
+        </a>
+    </td>
+    <td>
+        <a href="#{{ concert.pk }}"><h4>{{ concert.date }}</h4></a>
+        <a href="#{{ concert.pk }}" class="light-grey larger-p">{{ concert.title }}</a>
+    </td>
+</tr>

@@ -20,7 +20,7 @@
         }
     </style>
     <!--[if (gte IE 9)|!(IE)]><!-->
-    <link rel="stylesheet" media="screen and (min-width: 900px)" href="{% static 'css/hires_styles.css' %}">
+    <link rel="stylesheet" media="screen and (min-width: 950px)" href="{% static 'css/hires_styles.css' %}">
     <!--<![endif]-->
     <!-- HTML5 shim, Respond.js, ie only stylesheet. IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -78,24 +78,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/hashchange.min.js' %}"></script>
-    <script>
-    $("#dagger-area").click(function() {
-        $("#main_container").fadeToggle()
-    })
-    $(".meso_container").click(function() {
-        $("#main_container").fadeIn()
-    })
-    function check_sticky_footer() {
-        available_height = $(window).height() - $("#meta_container").height();
-        $("#main_container").css("min-height", $("#main_container").height() + available_height);
-    }
-    $( window ).resize(function() {
-      check_sticky_footer()
-    });
-    $( window ).load(function() {
-      check_sticky_footer()
-    });
-    </script>
+    <script src="{% static 'js/behaviour.js' %}"></script>
     {% block additional_js %}
     {% endblock %}
   </body>

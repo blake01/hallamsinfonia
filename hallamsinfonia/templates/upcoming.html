@@ -5,73 +5,43 @@
 
 <div id="upcoming-wrapper">
 
-    <div class="col">
-        <h1>Upcoming Concerts</h1>
+  <div class="col" id="concerts-listview">
 
-        <table class="concerts-table">
-            {% for concert in concerts %}
-            <tr class="concert">
-                <td class="fixed-width">
-                    <a href="#{{ concert.pk }}">
-                        <img src="{{ concert.image.image.url }}" alt="{{ concert.image.title }}" />
-                    </a>
-                </td>
-                <td>
-                    <a href="#{{ concert.pk }}"><h4>{{ concert.date }}</h4></a>
-                    <a href="#{{ concert.pk }}" class="light-grey larger-p">{{ concert.title }}</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+    <h1>Current Season</h1>
 
-        <h1>Past Concerts</h1>
+    <table class="concerts-table">
+      {% for concert in concerts %}
+      {% include 'concert_list_fragment.html' %}
+      {% endfor %}
+    </table>
 
-        <table class="concerts-table">
-            {% for concert in past_concerts %}
-            <tr class="concert">
-                <td class="fixed-width">
-                    <a href="#{{ concert.pk }}">
-                        <img src="{{ concert.image.image.url }}" alt="{{ concert.image.title }}" />
-                    </a>
-                </td>
-                <td>
-                    <a href="#{{ concert.pk }}"><h4>{{ concert.date }}</h4></a>
-                    <a href="#{{ concert.pk }}" class="light-grey larger-p">{{ concert.title }}</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+    <h1>Next Season</h1>
 
-    </div>
+    <table class="concerts-table">
+      {% for concert in concerts %}
+      {% include 'concert_list_fragment.html' %}
+      {% endfor %}
+    </table>
 
-    <div class="col" id="upcoming-detail" style="display:none"></div>
+    <h1>Past Seasons</h1>
+
+      {% for concert in past_concerts %}
+      <div>
+      <h3>Season Title <span class="arrow icon">ì</span></h3>
+      <table class="concerts-table hidden-concerts-table">
+      {% include 'concert_list_fragment.html' %}
+      </table>
+      </div>
+      {% endfor %}
+
+  </div>
+
+  <div class="col" id="upcoming-detail" style="display:none"></div>
 
 </div>
 
 {% endblock main_content %}
 
 {% block additional_js %}
-<script>
-
-$(function(){
-
-  // Bind the event.
-  $(window).hashchange( function() {
-    $( "#upcoming-detail" ).hide()
-    hash = location.hash.replace( /^#/, '' ) || 'blank'
-    if (hash != 'blank') {
-        $( "#upcoming-detail" ).load( "/upcoming/" + hash + "/", function() {
-            $( "#upcoming-detail" ).slideDown()
-            $('html, body').animate({
-                scrollTop: ($("#upcoming-detail").offset().top - 10)
-            }, 600);
-        })
-    }
-  })
-
-  // Trigger the event (useful on page load).
-  $(window).hashchange();
-});
-
-</script>
+<script src="{% static 'js/concertsAjax.js' %}"></script>
 {% endblock %}
