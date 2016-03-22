@@ -1,8 +1,10 @@
+from __future__ import unicode_literals
 from django.db import models
 from j29.generic import models as generic_models
 from j29.generic import fields as generic_fields
 from j29.generic.image_functions import resize_image_to_fixed_width
 from news.models import ArticleBase
+from django.utils import timezone
 
 
 class Article(ArticleBase):
@@ -71,11 +73,33 @@ class Location(generic_models.UKAddress):
     pass
 
 
+class SeasonManager(models.Manager):
+
+    def current(self):
+        """Single current season"""
+        now = timezone.now()
+        qs = super(SeasonManager, self).get_queryset()
+        return qs.filter(start_date__lte=now.date()).latest('start_date')
+
+    def next(self):
+        """Single next season"""
+        now = timezone.now()
+        qs = super(SeasonManager, self).get_queryset()
+        return qs.filter(start_date__gt=now.date()).first()
+
+    def previous(self):
+        """All previous seasons, latest first"""
+        now = timezone.now()
+        qs = super(SeasonManager, self).get_queryset()
+        return qs.filter(start_date__lte=now.date()).reverse()[1:]
+
+
 class Season(generic_models.SlugFromTitle):
     # Inherit a title, unicode method and slug field.
     start_date = models.DateField(
         help_text="Not displayed - used for sorting only"
     )
+    objects = SeasonManager()
 
     class Meta:
         ordering = ['start_date']
