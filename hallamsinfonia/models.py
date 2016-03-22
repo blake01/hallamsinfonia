@@ -5,6 +5,7 @@ from j29.generic import fields as generic_fields
 from j29.generic.image_functions import resize_image_to_fixed_width
 from news.models import ArticleBase
 from django.utils import timezone
+from django.db.models.signals import post_save, post_delete
 
 
 class Article(ArticleBase):
@@ -105,6 +106,15 @@ class Season(generic_models.SlugFromTitle):
         ordering = ['start_date']
 
 
+def organise_seasons(sender, instance, **kwargs):
+    """ Fired whenever a concert is created or deleted.
+    Automatically keeps the season start date up-to-date. """
+    parent = instance.season
+    first_event = parent.concert_set.first()
+    parent.start_date = first_event.date_and_time
+    parent.save()
+
+
 class Concert(models.Model):
     title = models.CharField(max_length=128)
     date_and_time = models.DateTimeField()
@@ -141,6 +151,10 @@ class Concert(models.Model):
 
     class Meta:
         ordering = ['date_and_time']
+
+# Connect signals to handler
+post_save.connect(organise_seasons, sender=Concert)
+post_delete.connect(organise_seasons, sender=Concert)
 
 
 class Piece(models.Model):
