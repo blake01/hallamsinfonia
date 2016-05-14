@@ -5,6 +5,7 @@ from j29.generic import fields as generic_fields
 from j29.generic.image_functions import resize_image_to_fixed_width
 from news.models import ArticleBase
 from django.utils import timezone
+from django.db.models.signals import post_save, post_delete
 
 
 class Article(ArticleBase):
@@ -175,3 +176,13 @@ class ConcessionaryTicket(models.Model):
 
     class Meta:
         ordering = ['weight']
+
+
+def organise_seasons(sender, instance, **kwargs):
+    """ Fired whenever a season is created, edited or deleted.
+    Automatically keeps the concert seasons up-to-date. """
+    for c in Concert.objects.all():
+        c.save()
+# Connect signals to handler
+post_save.connect(organise_seasons, sender=Season)
+post_delete.connect(organise_seasons, sender=Season)
