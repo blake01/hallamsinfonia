@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.utils import timezone
 import random
-from hallamsinfonia.models import Article, Concert, Conductor, Setting
+from hallamsinfonia.models import Article, Concert, Conductor, Setting, Season
 from news.views import NewsEndlessListView
 
 
@@ -35,8 +35,9 @@ def upcoming(request):
     common = common_context()
     now = timezone.now()
     context_dict = {
-        'concerts': Concert.objects.filter(date_and_time__gt=now),
-        'past_concerts': Concert.objects.filter(date_and_time__lt=now).reverse(),
+        'current_season': Season.objects.current(),
+        'next_season': Season.objects.next(),
+        'previous_seasons': Season.objects.previous(),
         'color': 'red',
     }
     context_dict.update(common)

@@ -7,31 +7,39 @@
 
   <div class="col" id="concerts-listview">
 
+    {% if current_season.concert_set.all %}
     <h1>Current Season</h1>
 
     <table class="concerts-table">
-      {% for concert in concerts %}
+      {% for concert in current_season.concert_set.all %}
       {% include 'concert_list_fragment.html' %}
       {% endfor %}
     </table>
+    {% endif %}
 
+    {% if next_season.concert_set.all %}
     <h1>Next Season</h1>
 
     <table class="concerts-table">
-      {% for concert in concerts %}
+      {% for concert in next_season.concert_set.all %}
       {% include 'concert_list_fragment.html' %}
       {% endfor %}
     </table>
+    {% endif %}
 
     <h1>Past Seasons</h1>
 
-      {% for concert in past_concerts %}
+      {% for season in previous_seasons %}
+      {% if season.concert_set.all %}
       <div>
-      <h3>Season Title <span class="arrow icon">ì</span></h3>
+      <h3>{{ season.title }} <span class="arrow icon">ì</span></h3>
       <table class="concerts-table hidden-concerts-table">
-      {% include 'concert_list_fragment.html' %}
+        {% for concert in season.concert_set.all %}
+        {% include 'concert_list_fragment.html' %}
+        {% endfor %}
       </table>
       </div>
+      {% endif %}
       {% endfor %}
 
   </div>

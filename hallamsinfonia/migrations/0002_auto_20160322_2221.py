@@ -11,7 +11,7 @@ from datetime import datetime
 
 def forwards(apps, schema_editor):
     # Custom code to add the default season if concerts already exist
-    s = Season(title='Default Season', start_date=datetime.now())
+    s = Season(title='Default Season', start_date=datetime(2008, 1, 1))
     s.save()
 
 
