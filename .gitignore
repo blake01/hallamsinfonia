@@ -1,5 +1,5 @@
 *.pyc
-
+secrets.py
 hallamsinfonia/static/.sass-cache
 
 uploaded_files
