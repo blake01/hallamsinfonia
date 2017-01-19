@@ -8,7 +8,7 @@
   <div class="col" id="concerts-listview">
 
     {% if current_season.concert_set.all %}
-    <h1>Current Season</h1>
+    <h1>Current Season and Upcoming Concerts</h1>
 
     <table class="concerts-table">
       {% for concert in current_season.concert_set.all %}
